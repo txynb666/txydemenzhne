@@ -79,6 +79,7 @@
   <button id="send">发送</button>
 </footer>
 
+<script src="/stream.js"></script>
 <script>
 /* ================= 状态管理 ================= */
 let sessionId = localStorage.getItem("clinic_session") || "";  // 会话续接
@@ -170,7 +171,14 @@ function renderTools(bubble, log){
 function showError(msg){
   errEl.textContent = "⚠️ " + msg;
   errEl.style.display = "block";
-  setTimeout(() => errEl.style.display = "none", 6000);
+
+}
+
+// Flush every received character before replacing the typing cursor.
+function finishTyping(){
+  clearInterval(typingTimer); typingTimer = null;
+  currentText += typingQueue.join(""); typingQueue = [];
+  currentBubble.textContent = currentText;
 }
 
 /* ================= 草稿确认卡片（中断点 UI） =================
@@ -181,7 +189,9 @@ function renderConfirm(bubble, payload){
   const box = document.createElement("div");
   box.className = "confirm-card";
   const p = payload.preview || {};
-  box.innerHTML = `<div class="h">📝 ${p.title || "待确认操作"}</div>`;
+  const heading = document.createElement("div");
+  heading.className = "h"; heading.textContent = "📝 " + (p.title || "待确认操作");
+  box.appendChild(heading);
 
   const tb = document.createElement("table");
   (p.fields || []).forEach(f => {
@@ -209,6 +219,7 @@ function renderConfirm(bubble, payload){
 
   // 确认：恢复执行，把后续结果流式渲染到同一条消息里
   yes.onclick = async () => {
+    if (busy) return;
     yes.disabled = no.disabled = true;
     box.classList.add("done");
     yes.textContent = "处理中…";
@@ -216,62 +227,29 @@ function renderConfirm(bubble, payload){
   };
   // 取消：告知后端丢弃挂起动作
   no.onclick = async () => {
+    if (busy) return;
     yes.disabled = no.disabled = true;
     box.classList.add("done");
-    await fetch("/chat/confirm", {
+    try {
+    const response = await fetch("/chat/confirm", {
       method:"POST", headers:{"Content-Type":"application/json"},
       body: JSON.stringify({token: payload.token, action:"reject"})
-    }).catch(()=>{});
+    });
+    const result = await response.json();
+    if (!response.ok || result.code !== 0) throw new Error(result.message || "取消失败，请查看记录");
     box.querySelector(".h").textContent = "❌ 已取消，未生成报销草稿";
     box.querySelector(".btns").remove();
+    } catch (error) {
+      showError(error.message || "取消失败，请查看记录");
+      box.querySelector(".h").textContent = "取消结果未确认，请查看记录";
+      yes.disabled = true; no.disabled = false;
+    }
   };
 }
 
 /* 调用 /chat/confirm 并解析 SSE 流（与 /chat 同一套解析逻辑） */
 async function runConfirm(token, action, cardBox){
-  setBusy(true);
-  // 新建一个气泡承接确认后的输出
-  const b = addMsg("bot");
-  currentBubble = b; currentText = "";
-  cursorEl = document.createElement("span"); cursorEl.className = "cursor";
-  b.appendChild(cursorEl);
-
-  const reader = (await fetch("/chat/confirm", {
-    method:"POST", headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({token, action})
-  }).catch(()=>null))?.body?.getReader();
-  if (!reader){ setBusy(false); return; }
-
-  const dec = new TextDecoder();
-  let buf = "", toolLog = [];
-  while (true){
-    const {done, value} = await reader.read();
-    if (done) break;
-    buf += dec.decode(value, {stream:true});
-    let i;
-    while ((i = buf.indexOf("\n\n")) >= 0){
-      const block = buf.slice(0, i); buf = buf.slice(i + 2);
-      let ev = "message", data = "";
-      block.split("\n").forEach(l => {
-        if (l.startsWith("event:")) ev = l.slice(6).trim();
-        if (l.startsWith("data:")) data += l.slice(5).trim();
-      });
-      if (!data) continue;
-      const pl = JSON.parse(data);
-      if (ev === "status"){ statusEl.textContent = pl.text; }
-      else if (ev === "tool"){ toolLog.push({name:pl.name, ok:pl.result && pl.result.ok, message:pl.result && pl.result.message}); }
-      else if (ev === "delta"){ enqueueTyping(pl.content); }
-      else if (ev === "error"){ showError(pl.message); }
-      else if (ev === "done"){
-        clearInterval(typingTimer); typingTimer = null; typingQueue = [];
-        b.textContent = currentText || "（无输出）";
-        renderTools(b, toolLog);
-        if (cardBox) cardBox.querySelector(".h").textContent = "✅ 已确认并生成草稿";
-        if (cardBox && cardBox.querySelector(".btns")) cardBox.querySelector(".btns").remove();
-      }
-    }
-  }
-  setBusy(false);
+  await requestStream("/chat/confirm", {token, action}, cardBox);
 }
 
 function setBusy(v){
@@ -284,81 +262,64 @@ function setBusy(v){
 /* ================= 核心：解析 SSE 流（fetch + ReadableStream） =================
    EventSource 只支持 GET，这里用 fetch POST 并手动解析 text/event-stream 格式 */
 async function ask(question){
+  await requestStream("/chat", {session_id: sessionId || null, question});
+}
+
+async function requestStream(url, body, cardBox){
   setBusy(true);
   errEl.style.display = "none";
-  currentBubble = addMsg("bot");
-  currentText = "";
+  currentBubble = addMsg("bot"); currentText = "";
   cursorEl = document.createElement("span"); cursorEl.className = "cursor";
   currentBubble.appendChild(cursorEl);
-
-  const reader = (await fetch("/chat", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({session_id: sessionId || null, question})
-  }).catch(e => { showError("网络异常，请稍后重试"); setBusy(false); return null; }))?.body?.getReader();
-  if (!reader) return;
-
-  const decoder = new TextDecoder();
-  let buf = "", sources = [], toolLog = [];
-
-  while (true){
-    const {done, value} = await reader.read();
-    if (done) break;
-    buf += decoder.decode(value, {stream: true});
-    /* SSE 事件以空行分隔，逐条解析 event: / data: */
-    let idx;
-    while ((idx = buf.indexOf("\n\n")) >= 0){
-      const block = buf.slice(0, idx); buf = buf.slice(idx + 2);
-      let event = "message", data = "";
-      block.split("\n").forEach(line => {
-        if (line.startsWith("event:")) event = line.slice(6).trim();
-        if (line.startsWith("data:"))  data += line.slice(5).trim();
-      });
-      if (!data) continue;
-      const payload = JSON.parse(data);
-
+  let sources = [], toolLog = [];
+  try {
+    const response = await fetch(url, {
+      method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)
+    });
+    await ClinicStream.consume(response, (event, payload) => {
       switch (event){
-        case "meta":                      // 首个事件：保存会话 ID
+        case "meta":
           sessionId = payload.session_id;
           localStorage.setItem("clinic_session", sessionId);
           break;
-        case "status":                    // 检索状态提示
-          statusEl.textContent = payload.text;
+        case "status": statusEl.textContent = payload.text; break;
+        case "sources": sources = payload.sources || []; break;
+        case "tool":
+          toolLog.push({name:payload.name, ok:payload.result?.ok !== false,
+                        message:payload.result?.message || ""});
           break;
-        case "sources":                   // 记录引用，回答结束后渲染
-          sources = payload.sources;
-          break;
-        case "tool":                      // 工具调用轨迹：先记下，结束后统一渲染
-          toolLog.push({name: payload.name, ok: payload.result && payload.result.ok !== false,
-                        message: (payload.result && payload.result.message) || ""});
-          break;
-        case "confirm":                   // 中断点：渲染草稿确认卡片，等待用户决定
-          renderTools(currentBubble, toolLog);
+        case "delta": enqueueTyping(payload.content || ""); break;
+        case "confirm":
+          finishTyping();
+          renderTools(currentBubble, toolLog); toolLog = [];
           renderConfirm(currentBubble, payload);
-          setBusy(false);
           break;
-        case "delta":                     // LLM 增量文本 → 打字机队列
-          enqueueTyping(payload.content);
+        case "done":
+          finishTyping();
+          if (!currentText) currentBubble.textContent = "本次未生成回答，请重试";
+          if (cardBox){
+            cardBox.querySelector(".h").textContent = "已处理，结果请查看下方回复和执行过程";
+            cardBox.querySelector(".btns")?.remove();
+          }
           break;
-        case "done":                      // 结束：去光标、渲染引用、解锁
-          clearInterval(typingTimer); typingTimer = null; typingQueue = [];
-          currentBubble.textContent = currentText || "（本次未生成回答，请重试）";
-          renderTools(currentBubble, toolLog);
-          if (sources.length) renderSources(currentBubble, sources);
-          setBusy(false);
-          break;
-        case "error":                     // 错误：红色提示，解锁重试
-          clearInterval(typingTimer); typingTimer = null; typingQueue = [];
-          currentBubble.textContent = currentText || "（未获得回答）";
-          renderTools(currentBubble, toolLog);
-          if (sources.length) renderSources(currentBubble, sources);
-          showError(payload.message);
-          setBusy(false);
+        case "error":
+          if (payload.code === 2001){
+            sessionId = ""; localStorage.removeItem("clinic_session");
+          }
           break;
       }
-    }
+    });
+  } catch (error){
+    finishTyping();
+    const message = error.message || "网络异常，请检查连接后重试";
+    if (!currentText) currentBubble.textContent = message;
+    showError(message);
+    if (cardBox) cardBox.querySelector(".h").textContent = "处理结果未确认，请先查看记录，避免重复提交";
+  } finally {
+    renderTools(currentBubble, toolLog);
+    if (sources.length) renderSources(currentBubble, sources);
+    setBusy(false); scrollBottom(); inputEl.focus();
   }
-  setBusy(false);   // 兜底解锁
 }
 
 /* ================= 发送 ================= */

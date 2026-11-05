@@ -18,6 +18,7 @@ import threading
 import pathlib
 
 from fastapi import FastAPI
+from app.core.model_provider import provider_error
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
@@ -205,8 +206,8 @@ async def chat(req: ChatRequest):
         except RagError as e:                       # 检索层已知异常 → 映射错误码
             key = e.code if e.code in ERRORS else "INTERNAL"
             yield sse("error", {"code": ERRORS[key][0], "message": e.message})
-        except Exception:                           # 其余一律按 LLM 异常兜底
-            yield sse("error", {"code": 3002, "message": ERRORS["LLM_UNAVAILABLE"][1]})
+        except Exception as exc:
+            yield sse("error", {"code": 3002, "message": provider_error(exc)})
 
     return StreamingResponse(event_stream(), media_type="text/event-stream",
                              headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})

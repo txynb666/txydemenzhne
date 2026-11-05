@@ -21,7 +21,7 @@ import numpy as np
 import jieba
 import faiss
 from rank_bm25 import BM25Okapi
-from openai import OpenAI
+from app.core.model_provider import client as model_client, model_name, provider_error, ModelConfigurationError
 
 # ---------------- 配置 ----------------
 CHUNK_SIZE = 500        # 每片约 500 字
@@ -42,25 +42,18 @@ class RagError(Exception):
 
 
 # ---------------- LLM 与 Embedding 抽象（供应商可配置） ----------------
-def _llm_client() -> OpenAI:
-    """任何兼容 OpenAI 协议的供应商都可通过环境变量切换。"""
-    return OpenAI(
-        api_key=os.getenv("LLM_API_KEY", "EMPTY"),
-        base_url=os.getenv("LLM_BASE_URL", "https://api.deepseek.com/v1"),
-    )
+def _llm_client():
+    return model_client()
 
 
-def _embed_client() -> OpenAI:
-    return OpenAI(
-        api_key=os.getenv("EMBED_API_KEY", os.getenv("LLM_API_KEY", "EMPTY")),
-        base_url=os.getenv("EMBED_BASE_URL", os.getenv("LLM_BASE_URL", "https://api.deepseek.com/v1")),
-    )
+def _embed_client():
+    return model_client("embed")
 
 
 def chat_stream(messages: list, temperature: float = 0.2):
     """流式对话：逐段 yield 文本增量，供 SSE 的 delta 事件使用。"""
     stream = _llm_client().chat.completions.create(
-        model=os.getenv("LLM_MODEL", "deepseek-chat"),
+        model=model_name(),
         messages=messages, temperature=temperature, stream=True)
     for chunk in stream:
         piece = chunk.choices[0].delta.content or ""
@@ -73,8 +66,11 @@ def embed(texts: list) -> np.ndarray:
     # 分批调用，避免单次请求过大被服务端拒绝
     out = []
     for i in range(0, len(texts), 32):
-        resp = _embed_client().embeddings.create(
-            model=os.getenv("EMBED_MODEL", "BAAI/bge-m3"), input=texts[i:i + 32])
+        try:
+            resp = _embed_client().embeddings.create(
+                model=model_name("embed"), input=texts[i:i + 32])
+        except Exception as exc:
+            raise RagError("EMBED_UNAVAILABLE", provider_error(exc, "embed")) from None
         out.extend([d.embedding for d in resp.data])
     vecs = np.array(out, dtype="float32")
     faiss.normalize_L2(vecs)
@@ -179,6 +175,12 @@ def _collect_sources() -> list:
     return []
 
 
+def _embedding_identity():
+    from app.core.model_provider import settings
+    cfg = settings("embed")
+    return {"base_url": cfg["base_url"], "model": cfg["model"]}
+
+
 def _build() -> HybridRetriever:
     """全量构建：解析所有文档 → 切片 → 向量化 → 写缓存。"""
     sources = _collect_sources()
@@ -200,7 +202,7 @@ def _build() -> HybridRetriever:
     vecs = embed(chunks)
     pathlib.Path(INDEX_DIR).mkdir(exist_ok=True)
     (pathlib.Path(INDEX_DIR) / "chunks.json").write_text(
-        json.dumps({"chunks": chunks, "meta": metas}, ensure_ascii=False), "utf-8")
+        json.dumps({"chunks": chunks, "meta": metas, "embedding": _embedding_identity()}, ensure_ascii=False), "utf-8")
     np.save(pathlib.Path(INDEX_DIR) / "vecs.npy", vecs)
     return HybridRetriever(chunks, vecs, metas)
 
@@ -216,13 +218,15 @@ def get_retriever() -> HybridRetriever:
         chunks_file = pathlib.Path(INDEX_DIR) / "chunks.json"
         vecs_file = pathlib.Path(INDEX_DIR) / "vecs.npy"
         try:
-            if chunks_file.exists() and vecs_file.exists():
-                data = json.loads(chunks_file.read_text("utf-8"))
+            data = json.loads(chunks_file.read_text("utf-8")) if chunks_file.exists() else {}
+            if vecs_file.exists() and data.get("embedding") == _embedding_identity():
                 _retriever = HybridRetriever(data["chunks"], np.load(vecs_file), data["meta"])
             else:
                 _retriever = _build()
         except RagError:
             raise
+        except ModelConfigurationError as exc:
+            raise RagError("EMBED_UNAVAILABLE", provider_error(exc, "embed")) from None
         except Exception:
             raise RagError("INDEX_NOT_READY", "知识库初始化中，请稍后再试")
     return _retriever

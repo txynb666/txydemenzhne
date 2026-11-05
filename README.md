@@ -45,6 +45,71 @@
 
 ## 快速开始
 
+### Windows：免费本地模型（RTX 4060 8GB 可先尝试）
+
+无需购买云端 API；模型在自己的电脑上推理，会占用磁盘、内存和电量。
+小模型的回答和工具调用稳定性需要自行验证，适合学习与演示。
+
+1. 安装并打开 [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+   和 [Ollama Windows](https://ollama.com/download/windows)。
+2. 新开 PowerShell，下载对话模型与向量模型（约 3.7 GB）：
+
+```powershell
+ollama pull qwen3:4b
+ollama pull bge-m3
+```
+
+3. 在项目根目录启动：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/start.ps1 -LocalModel
+```
+
+脚本首次运行会从 `.env.ollama.example` 创建 `.env`、创建数据库文件并构建启动。
+已有 `.env` 时不会覆盖密钥或配置；请手动把模板中的六项 `LLM_*` / `EMBED_*`
+复制进去，再运行脚本。模板使用 `host.docker.internal:11434/v1`，因为服务在
+Docker 内，而 Ollama 运行在 Windows 上。直接用 Python 运行时应改为
+`http://localhost:11434/v1`。不要把本地 Ollama 端口暴露到公网。
+
+4. 打开 <http://localhost:8000>；后台 <http://localhost:8000/admin/login>。
+
+如果连接失败，先确认 Ollama 正在运行，再执行模型自检：
+
+```powershell
+docker compose exec clinic-agent python scripts/check_models.py
+```
+
+自检会实际发送一次简短的对话请求（含工具定义）和一次向量请求；使用云端配置时
+可能产生少量 API 费用。输出只包含状态和修复建议，不输出密钥或原始响应。
+`402` 表示余额不足，`401` 表示密钥无效，`404` 表示接口或模型不存在。
+健康检查 `/health` 只确认网页服务存活，不代表外部模型可用。
+
+更换向量服务或模型后，知识库索引会自动重建，无需删除数据库。
+首次加载模型、建立索引较慢，请等待。API 配置保存后要重建容器以重新读取环境：
+
+```powershell
+docker compose up -d --force-recreate
+```
+
+更新代码后，保留本地 `.env`、`clinic.db` 和 `data/`，再重新构建：
+
+```powershell
+git pull --ff-only
+docker compose up -d --build --force-recreate
+```
+
+使用 ZIP 下载的用户可下载新版，把源码更新到原目录；保留以上本地配置和数据。
+
+### 验证升级
+
+```bash
+python -m pytest tests/ -q
+node --test tests/test_stream.cjs
+```
+
+Python 测试使用模拟模型响应，不需要真实 API 密钥；前端测试需 Node.js 18+。
+覆盖余额错误提示、空向量配置回退、切换模型后重建索引、网络中断以及完整回答保留。
+
 ### 方式一：本地运行（推荐开发使用）
 
 ```bash

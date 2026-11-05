@@ -193,7 +193,7 @@ def search_policy(query: str, category: str = "", user_id: str = "", **kw):
         retriever = rag.get_retriever()
         hits = retriever.search(query, top_k=3)
     except rag.RagError as e:
-        return _fail(int(e.code == "INDEX_NOT_READY") and 4001, e.message)
+        return _fail(4001 if e.code == "INDEX_NOT_READY" else 4002, e.message)
     snippets = [{"doc": doc, "text": chunk[:300]} for chunk, _score, doc in hits]
     return _ok({"query": query, "snippets": snippets,
                 "answer_hint": "请仅依据上述片段回答，片段中无内容则回答“制度中未找到”"})

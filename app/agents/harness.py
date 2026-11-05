@@ -23,7 +23,7 @@ import json
 import time
 import uuid
 
-from openai import OpenAI
+from app.core.model_provider import client as model_client, model_name, provider_error
 
 from app.services import tools
 from app.repositories import agent_trace
@@ -36,15 +36,12 @@ from app.core.config import MAX_ROUNDS, MAX_WRITE_PER_RUN
 CONFIRM_REQUIRED = {"create_reimbursement_draft"}
 
 
-def _client() -> OpenAI:
-    return OpenAI(
-        api_key=os.getenv("LLM_API_KEY", "EMPTY"),
-        base_url=os.getenv("LLM_BASE_URL", "https://api.deepseek.com/v1"),
-    )
+def _client():
+    return model_client()
 
 
-def _model() -> str:
-    return os.getenv("LLM_MODEL", "deepseek-chat")
+def _model():
+    return model_name()
 
 
 # ============================================================
@@ -124,7 +121,6 @@ def run(question: str, history: list, user_id: str, conv_id: str = ""):
     agent_trace.log_step(run_id, 0, "decision", conv_id, user_id,
                          arguments={"question": question})
 
-    client = _client()
     write_count = 0
 
     for round_no in range(1, MAX_ROUNDS + 1):
@@ -132,13 +128,14 @@ def run(question: str, history: list, user_id: str, conv_id: str = ""):
 
         # ---------- ① 模型决策 ----------
         try:
-            resp = client.chat.completions.create(
+            resp = _client().chat.completions.create(
                 model=_model(), messages=messages, temperature=0.2,
                 tools=tools.TOOLS_SPEC, tool_choice="auto")
-        except Exception:
+        except Exception as exc:
+            message = provider_error(exc)
             agent_trace.log_step(run_id, round_no, "error", conv_id, user_id,
-                                 result={"ok": False, "code": 3002, "message": "模型调用失败"})
-            yield {"type": "error", "message": "智能服务暂不可用，请稍后重试"}
+                                 result={"ok": False, "code": 3002, "message": message})
+            yield {"type": "error", "message": message}
             return
 
         msg = resp.choices[0].message
@@ -208,6 +205,9 @@ def run(question: str, history: list, user_id: str, conv_id: str = ""):
             yield {"type": "status", "text": agent_mod._status_text(name)}
             result = _exec_tool(run_id, round_no, name, args, user_id, conv_id)
             yield {"type": "tool", "name": name, "args": args, "result": result}
+            if name == "search_policy" and not result.get("ok") and result.get("code") == 4002:
+                yield {"type": "error", "message": result["message"]}
+                return
             messages.append({"role": "tool", "tool_call_id": tc.id,
                              "content": json.dumps(result, ensure_ascii=False)})
 
@@ -241,13 +241,12 @@ def resume(token: str, user_id: str):
 
     # 让模型用自然语言收尾（不再给它工具，避免它再做写操作）
     try:
-        client = _client()
         prompt = (
             f"员工已确认执行 {name}，工具返回结果：\n"
             f"{json.dumps(result, ensure_ascii=False)}\n\n"
             "请用简洁中文告知员工处理结果与下一步（例如如何补发票、审批时限），不要调用任何工具。"
         )
-        resp = client.chat.completions.create(
+        resp = _client().chat.completions.create(
             model=_model(), temperature=0.2,
             messages=[{"role": "system", "content": agent_mod.get_system_prompt()},
                       {"role": "user", "content": prompt}])
