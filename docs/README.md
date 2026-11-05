@@ -1,5 +1,7 @@
 # 项目文档
 
+查看[开发与提交过程索引](development-process.md)，核查真实迭代、Issue、PR与验证记录。
+
 ## 代码实现与验证证据
 
 从[验证总览](validation/README.md)查看一键复现命令、真实测试报告、需求追溯矩阵和未完成范围。

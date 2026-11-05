@@ -1,6 +1,6 @@
 # 开发与提交规范
 
-本规范从引入本文件的提交开始使用，不代表早期提交已经遵循这些步骤。
+本次新增的流程要求从本次更新开始使用，不代表早期提交已经遵循这些步骤。
 
 1. 先建 Issue，描述真实问题、复现步骤和可验证的完成标准。
 2. 从最新 main 创建功能分支，一条分支解决一个明确问题。
@@ -23,3 +23,21 @@
 当前有本地一键验证，未建立本轮 GitHub Actions 自动运行记录；不能把本地 PASS 写成 CI 已通过。
 
 详见 [验证总览](docs/validation/README.md) 与 [提交过程索引](docs/development-process.md)。
+
+## 保留的工程约束
+
+|目录|职责|
+|---|---|
+|app/core/|配置与常量|
+|app/api/|路由与请求校验，业务规则放services|
+|app/services/|业务逻辑和工具，不耦合HTTP|
+|app/agents/|编排与提示词，数据访问交给repositories|
+|app/rag/|检索与向量化|
+|app/repositories/|数据访问|
+|static/、templates/|前端资源|
+
+修改工具必须运行回归测试；修改提示词须检查兜底逻辑。新增写工具加入 tools.WRITE_TOOLS，需人工确认的加入 harness.CONFIRM_REQUIRED，并携带幂等键。新增接口遵循统一 code 与中文message错误响应，不直接暴露500堆栈。涉及Agent行为时说明对30条评测计划的影响，未跑真实模型评测须写明。
+
+## 开发环境
+
+Python安装依赖后可用 `uvicorn app.main:app --reload --port 8000` 启动；本地免费模型配置见README。已有Linux初始化方式仍可用：`bash scripts/init.sh`、激活.venv、`make dev`。跨平台完整验证统一使用 `python scripts/verify.py`。
