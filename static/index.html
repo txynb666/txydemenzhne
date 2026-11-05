@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>门诊预约与分诊助手</title>
-<link rel="stylesheet" href="/chat.css?v=20261105-2">
+<link rel="stylesheet" href="/chat.css?v=20261105-3">
 </head>
 <body>
 <main class="app-shell">
@@ -25,7 +25,18 @@
   </div>
 </header>
 
-<div id="chat" role="log" aria-label="对话消息"></div>
+<div id="chat" role="log" aria-label="对话消息" tabindex="0">
+  <div class="welcome-state">
+    <span class="welcome-icon" aria-hidden="true">✚</span>
+    <h2>您好，有什么可以帮您？</h2>
+    <p>就诊前的疑问，在这里说清楚。</p>
+    <div class="welcome-topics">
+      <div><b>就诊制度</b><span>了解就诊须知与相关制度</span></div>
+      <div><b>预约分诊</b><span>查询号源，协作完成预约</span></div>
+      <div><b>报销指引</b><span>咨询材料要求与报销流程</span></div>
+    </div>
+  </div>
+</div>
 <div id="status" role="status" aria-live="polite"></div>
 <div id="err" role="alert"></div>
 
