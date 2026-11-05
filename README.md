@@ -73,6 +73,31 @@ Docker 内，而 Ollama 运行在 Windows 上。直接用 Python 运行时应改
 
 4. 打开 <http://localhost:8000>；后台 <http://localhost:8000/admin/login>。
 
+#### 8000 与 8001：访问地址以启动方式为准
+
+- Docker Compose 和默认开发命令使用 **8000**，上面的地址无需修改。
+- 如果旧版已经占用 8000，可将另一份升级版用 Python 启动在 **8001**。
+  在升级版项目根目录、已安装依赖的 Python 环境中执行：
+
+```powershell
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8001
+```
+
+此时员工端为 <http://localhost:8001/>，后台为
+<http://localhost:8001/admin/login>，健康检查为 <http://localhost:8001/health>。
+服务会读取该项目目录中的 `.env`；使用本机 Ollama 时，两个 `BASE_URL` 应设为
+`http://localhost:11434/v1`，使用云端 API 时保留对应服务商地址。
+
+端口号不代表版本：8000 也可以运行最新版，8001 只用于避开端口冲突。
+如果两份代码使用独立的数据库或数据副本，预约、报销和历史对话不会自动同步。
+
+#### 新版对话页面
+
+新版界面包含“企业健康服务 · CARE DESK”头部、咨询对话栏，以及带“向门诊助手提问”
+标签的底部输入区；回复按结论、依据与下一步建议分块展示。样式位于
+`static/chat.css`，文本排版位于 `static/message-view.js`，原有聊天脚本和业务规则保持不变。
+更新后若仍看到旧版，请先确认访问的是新版服务地址，再强制刷新浏览器。
+
 如果连接失败，先确认 Ollama 正在运行，再执行模型自检：
 
 ```powershell
