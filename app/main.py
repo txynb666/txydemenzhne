@@ -22,6 +22,7 @@ from app.core.model_provider import provider_error
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+from typing import Literal
 
 from app import rag
 from app.rag import RagError
@@ -217,7 +218,7 @@ async def chat(req: ChatRequest):
 class ConfirmRequest(BaseModel):
     """POST /chat/confirm 请求体。"""
     token: str = Field(..., min_length=1, description="confirm 事件返回的令牌")
-    action: str = Field("confirm", description="confirm 确认 / reject 取消")
+    action: Literal["confirm", "reject"] = Field("confirm", description="confirm 确认 / reject 取消")
 
 
 @app.post("/chat/confirm")
@@ -240,7 +241,7 @@ async def chat_confirm(req: ConfirmRequest):
     async def resume_stream():
         """恢复执行的 SSE 流：status → tool → delta* → done。"""
         try:
-            full, tool_log = [], []
+            full, tool_log, confirmed_conv_id = [], [], None
             for ev in harness.resume(token, user_id="demo_user"):
                 t = ev["type"]
                 if t == "status":
@@ -258,12 +259,13 @@ async def chat_confirm(req: ConfirmRequest):
                     yield sse("error", {"code": 4003, "message": ev["message"]})
                     return
                 elif t == "done":
+                    confirmed_conv_id = ev.get("conv_id")
                     break
             # 把确认后的结果也记入会话，保证审计页能看到完整对话
             answer = "".join(full) or "草稿已生成"
             with _db_lock, db() as c:
-                conv = c.execute("SELECT id FROM conversations ORDER BY created_at DESC "
-                                 "LIMIT 1").fetchone()
+                conv = c.execute("SELECT id FROM conversations WHERE id=?",
+                                 (confirmed_conv_id,)).fetchone()
                 if conv:
                     c.execute("INSERT INTO messages(conversation_id, role, content, sources) "
                               "VALUES (?,?,?,?)",

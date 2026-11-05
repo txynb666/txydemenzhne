@@ -259,4 +259,4 @@ def resume(token: str, user_id: str):
 
     agent_trace.log_step(run_id, 99, "final", conv_id, user_id,
                          result={"ok": True, "code": 0, "message": "确认后收尾完成"})
-    yield {"type": "done", "run_id": run_id, "committed": True}
+    yield {"type": "done", "run_id": run_id, "conv_id": conv_id, "committed": True}

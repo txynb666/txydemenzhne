@@ -2,13 +2,13 @@
 
 企业员工门诊预约与分诊协作平台：**对话式制度问答 + 自主决策智能体 + 预约/报销工具链 + 管理后台**。
 
-员工在 App/网页里问「我发烧 38.9 度该挂什么科」「门诊费能报多少」，助手会自主决定检索制度、查号源、校验报销资格；**任何写操作前强制中断，等员工确认后才落库**。
+员工在网页里咨询就诊制度、预约和报销，助手可检索制度、查演示号源、校验报销资格。**报销草稿在员工确认后创建；AI 预约写入待人工分诊状态**。当前未对接真实医院或企业审批系统。
 
 <p>
 <img alt="Python" src="https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white">
 <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white">
 <img alt="License" src="https://img.shields.io/badge/License-MIT-green">
-<img alt="Tests" src="https://img.shields.io/badge/Tests-9%20passed-brightgreen">
+<img alt="Offline tests" src="https://img.shields.io/badge/Offline%20tests-40%20passed-brightgreen">
 </p>
 
 ---
@@ -248,7 +248,7 @@ clinic-triage-agent/
 │   └── 上线检查清单.md                    # 5 维度 × 5 项，含阻断红线
 ├── scripts/
 │   └── init.sh                           # 一键初始化脚本
-├── .github/workflows/ci.yml              # CI：测试 + 评测用例校验 + 镜像构建
+├── scripts/verify.py                    # 跨平台：代码测试 + 文档完整性 + 结果归档
 ├── Makefile                              # 常用命令（make help 查看）
 ├── Dockerfile  ·  docker-compose.yml
 ├── requirements.txt  ·  .env.example  ·  .gitignore
@@ -316,12 +316,14 @@ make docker-up     # 启动容器
 ### 约束回归测试（不依赖真实 LLM）
 
 ```bash
-make test
-# 9 passed
+python scripts/verify.py
+# syntax / backend / frontend / documents: PASS
 ```
 
 覆盖：无令牌建单必拒、校验不通过不签发令牌、令牌重放拒绝、篡改金额拒绝、
 起付线判断、AI 建预约强制 `pending_triage`、幂等键防重单、号源约满保护。
+本次离线运行后端 34 项、前端 6 项通过；不代表真实模型问答准确率。
+结果默认保存在 `artifacts/verification/`，提交的实测快照与需求追溯见[验证总览](docs/validation/README.md)。
 
 ### 30 条评测用例
 
@@ -334,7 +336,7 @@ make test
 | 违规意图 | 5 | 补发票、改抬头、虚增金额、跳流程、**提示词注入** |
 | 多轮上下文 | 5 | 代词指代、追问补全、状态延续、否定修正、跨轮复用 |
 
-CI 会自动校验用例数量与字段完整性。
+`scripts/verify_docs.py` 校验用例数量与字段完整性；这 30 条是模型人工评测计划，尚未作为真实模型通过率报告。
 
 ---
 

@@ -15,6 +15,7 @@ tools.py —— 门诊助手 Agent 的工具层（Function Calling 规范实现�
 """
 
 import json
+import math
 import time
 import uuid
 import hashlib
@@ -30,7 +31,7 @@ DB_PATH = str(_CFG_DB)
 _lock = threading.Lock()
 
 # 令牌签名密钥（生产从环境变量注入）
-TOKEN_SECRET = "clinic-eligibility-secret"
+from app.core.config import TOKEN_SECRET
 TOKEN_TTL = 300          # 校验令牌 5 分钟有效
 
 
@@ -266,6 +267,8 @@ def check_reimbursement_eligibility(visit_type: str, amount: float, invoice_type
         amount = float(amount)
     except (TypeError, ValueError):
         return _fail(6002, "金额格式不正确")
+    if not math.isfinite(amount) or amount <= 0:
+        return _fail(6002, "金额须为大于零的有限数值")
 
     rule = REIMB_POLICY.get(visit_type)
     if not rule:
@@ -345,6 +348,16 @@ def create_appointment(slot_id: str, symptom_summary: str, recommended_dept: str
     if not slot_id or not idempotency_key:
         return _fail(6006, "缺少必要参数（slot_id / idempotency_key）")
 
+    # Retries must return the original booking even after its slot becomes full.
+    with db() as c:
+        existing = c.execute("SELECT * FROM appointments WHERE idem_key=?",
+                             (idempotency_key,)).fetchone()
+    if existing:
+        if existing['user_id'] != user_id or existing['slot_id'] != slot_id:
+            return _fail(6007, "幂等键已用于其他用户或号源")
+        return _ok({"appointment_id": existing['id'], "status": existing['status'],
+                    "duplicated": True}, "该预约已创建，未重复提交")
+
     # 服务层二次校验：不信任模型传入的 slot_id
     check = check_slot_availability(slot_id, user_id)
     if not check["ok"]:
@@ -358,6 +371,8 @@ def create_appointment(slot_id: str, symptom_summary: str, recommended_dept: str
         exist = c.execute("SELECT * FROM appointments WHERE idem_key=?",
                           (idempotency_key,)).fetchone()
         if exist:
+            if exist['user_id'] != user_id or exist['slot_id'] != slot_id:
+                return _fail(6007, "幂等键已用于其他用户或号源")
             return _ok({"appointment_id": exist["id"], "status": exist["status"],
                         "duplicated": True}, "该预约已创建，未重复提交")
         cur = c.execute(
