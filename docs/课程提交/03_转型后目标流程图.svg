@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1540" viewBox="0 0 1400 1540"><rect width="100%" height="100%" fill="#F6F9FC"/>
+<rect x="150" y="200" width="630" height="100" rx="14" fill="#EAF3FD" stroke="#6D9FCB" stroke-width="2"/>
+<text x="465.0" y="258.16" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">员工进入对话并提交需求</text>
+<rect x="150" y="360" width="630" height="100" rx="14" fill="#EAF3FD" stroke="#6D9FCB" stroke-width="2"/>
+<text x="465.0" y="401.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">检索制度并展示依据</text>
+<text x="465.0" y="434.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">补充科室与日期</text>
+<polyline points="465,300 465,360" fill="none" stroke="#65809B" stroke-width="3"/>
+<polygon points="465,360 458,348 472,348" fill="#65809B"/>
+<rect x="150" y="520" width="630" height="100" rx="14" fill="#EAF3FD" stroke="#6D9FCB" stroke-width="2"/>
+<text x="465.0" y="561.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">查询演示号源</text>
+<text x="465.0" y="594.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">二次检查并创建预约</text>
+<polyline points="465,460 465,520" fill="none" stroke="#65809B" stroke-width="3"/>
+<polygon points="465,520 458,508 472,508" fill="#65809B"/>
+<rect x="150" y="680" width="630" height="100" rx="14" fill="#FFF5E6" stroke="#BD965C" stroke-width="2"/>
+<text x="465.0" y="721.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">AI预约记为待分诊</text>
+<text x="465.0" y="754.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">由分诊人员确认</text>
+<polyline points="465,620 465,680" fill="none" stroke="#65809B" stroke-width="3"/>
+<polygon points="465,680 458,668 472,668" fill="#65809B"/>
+<rect x="150" y="840" width="630" height="100" rx="14" fill="#F0F2F5" stroke="#97A5B5" stroke-width="2"/>
+<text x="465.0" y="881.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">到院登记与异常分类</text>
+<text x="465.0" y="914.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">迟到 加号 改派复核</text>
+<polyline points="465,780 465,840" fill="none" stroke="#65809B" stroke-width="3" stroke-dasharray="8 6"/>
+<polygon points="465,840 458,828 472,828" fill="#65809B"/>
+<rect x="150" y="1000" width="630" height="100" rx="14" fill="#F0F2F5" stroke="#97A5B5" stroke-width="2"/>
+<text x="465.0" y="1041.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">候诊协同与医生接诊</text>
+<text x="465.0" y="1074.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">采集到诊及接诊事件</text>
+<polyline points="465,940 465,1000" fill="none" stroke="#65809B" stroke-width="3" stroke-dasharray="8 6"/>
+<polygon points="465,1000 458,988 472,988" fill="#65809B"/>
+<rect x="150" y="1160" width="630" height="100" rx="14" fill="#F0F2F5" stroke="#97A5B5" stroke-width="2"/>
+<text x="465.0" y="1201.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">审计与反馈改进</text>
+<text x="465.0" y="1234.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">衡量候诊与服务指标</text>
+<polyline points="465,1100 465,1160" fill="none" stroke="#65809B" stroke-width="3" stroke-dasharray="8 6"/>
+<polygon points="465,1160 458,1148 472,1148" fill="#65809B"/>
+<rect x="950" y="350" width="330" height="130" rx="14" fill="#F0F2F5" stroke="#97A5B5" stroke-width="2"/>
+<text x="1115.0" y="406.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">真实医院排班同步</text>
+<text x="1115.0" y="439.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">接口对接待实现</text>
+<polyline points="950,415 860,415 860,570 780,570" fill="none" stroke="#65809B" stroke-width="3" stroke-dasharray="8 6"/>
+<polygon points="780,570 792,563 792,577" fill="#65809B"/>
+<rect x="950" y="650" width="330" height="130" rx="14" fill="#EAF3FD" stroke="#6D9FCB" stroke-width="2"/>
+<text x="1115.0" y="706.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">报销扩展支线</text>
+<text x="1115.0" y="739.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">校验后展示草稿确认</text>
+<polyline points="780,410 850,410 850,715 950,715" fill="none" stroke="#65809B" stroke-width="3"/>
+<polygon points="950,715 938,708 938,722" fill="#65809B"/>
+<rect x="950" y="900" width="330" height="130" rx="14" fill="#FFF5E6" stroke="#BD965C" stroke-width="2"/>
+<text x="1115.0" y="956.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">取消不建单</text>
+<text x="1115.0" y="989.66" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="24" fill="#18334D">确认后生成草稿</text>
+<polyline points="1115,780 1115,900" fill="none" stroke="#65809B" stroke-width="3"/>
+<polygon points="1115,900 1108,888 1122,888" fill="#65809B"/>
+<text x="700" y="1418.5" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#18334D">目标  可追溯咨询与受控操作  候诊成效需未来试点验证</text>
+<text x="700" y="78.26" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="39" fill="#18334D">门诊协作数智化转型后目标流程</text>
+<text x="700" y="132.48" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="22" fill="#526A82">蓝色为MVP能力 黄色为人工责任 灰色为后续规划</text>
+<text x="700" y="1486.46" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="19" fill="#526A82">来源 FDE合成案例与当前代码  2026年11月5日</text>
+</svg>

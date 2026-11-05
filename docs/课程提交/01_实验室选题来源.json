@@ -1,0 +1,196 @@
+{
+  "project": {
+    "id": "healthcare-appointments",
+    "name": "门诊预约与分诊协作",
+    "company": "东湖门诊中心",
+    "kind": "project",
+    "industry": "医疗",
+    "discoveryHref": "/group-lab?project=healthcare-appointments&moduleId=healthcare-appointments",
+    "sector": "医疗",
+    "summary": "围绕“门诊预约与分诊协作”开展业务挖掘、现场调研、需求定义与后续交付训练。",
+    "accent": "green",
+    "library": "general",
+    "moduleId": "healthcare-appointments",
+    "publicResearch": null,
+    "image": {
+      "src": "/catalog-artwork/illustrated/module-healthcare-appointments.jpg",
+      "alt": "东湖门诊中心 · 门诊预约与分诊协作的插画业务现场",
+      "caption": "门诊接待大厅 · 合成插画"
+    },
+    "href": "/group-training?project=healthcare-appointments",
+    "problemProposers": {
+      "mode": "固定角色",
+      "primary": {
+        "id": "healthcare-appointments-r1",
+        "name": "林亦舟",
+        "role": "导诊护士",
+        "kind": "主问题提出人"
+      },
+      "co": [
+        {
+          "id": "healthcare-appointments-r0",
+          "name": "顾明岚",
+          "role": "门诊运营主任",
+          "kind": "共同提出人"
+        }
+      ],
+      "basis": "依据角色开场定位：直接描述一线痛点者与负责业务目标和范围者"
+    },
+    "moduleIds": [
+      "healthcare-appointments"
+    ]
+  },
+  "module": {
+    "id": "healthcare-appointments",
+    "caseInfo": {
+      "id": "healthcare-appointments",
+      "title": "预约很多，候诊依然很久",
+      "company": "东湖门诊中心",
+      "industry": "医疗",
+      "room": "东湖门诊中心 · 门诊预约与分诊协作工作现场",
+      "opening": "我们在“门诊预约与分诊协作”上投入了很多人力。迟到患者与现场加号混在队列里，护士反复解释次序。管理层希望用 AI 改善，但还没有确定优先环节、验收标准和权限边界。请你先和各岗位聊聊，找出值得验证的业务需求。",
+      "source": "原创合成案例",
+      "sources": [],
+      "roles": [
+        {
+          "name": "顾明岚",
+          "role": "门诊运营主任",
+          "intro": "我关心业务价值、决策与试点范围。",
+          "problem": "",
+          "request": "",
+          "task": "从门诊运营主任的视角核实门诊预约与分诊协作",
+          "focus": "业务目标与试点决策",
+          "questions": [
+            "这次最希望达成的业务目标是什么？",
+            "请讲讲现在实际的处理流程。",
+            "怎么验收成功？试点标准是什么？",
+            "试点预算是多少，成本怎样核算？",
+            "谁参与决策，谁可以否决方案？",
+            "首期优先做什么，试点覆盖哪里？"
+          ]
+        },
+        {
+          "name": "林亦舟",
+          "role": "导诊护士",
+          "intro": "我可以讲具体经历、现场习惯和复核方式。",
+          "problem": "",
+          "request": "",
+          "task": "从导诊护士的视角核实门诊预约与分诊协作",
+          "focus": "现场操作与异常处理",
+          "questions": [
+            "你日常有哪些痛点，最费时间的环节是什么？",
+            "能给我一个具体的异常或失败例子吗？",
+            "有多少单、花多久，有统计样本吗？",
+            "现场操作有什么限制，设备和网络情况怎样？",
+            "一线有什么绕开系统的习惯，原因是什么？",
+            "辅助结果怎么复核，发现错误怎么办？"
+          ]
+        },
+        {
+          "name": "唐映秋",
+          "role": "排班管理员",
+          "intro": "我熟悉流程、材料、交接与责任。",
+          "problem": "",
+          "request": "",
+          "task": "从排班管理员的视角核实门诊预约与分诊协作",
+          "focus": "流程交接与资料责任",
+          "questions": [
+            "请讲讲现在实际的处理流程。",
+            "可以提供哪些材料、模板或证据？",
+            "哪些操作必须人工审批，谁有权限？",
+            "交接时需要什么，责任从何时转移？",
+            "业务规则如何维护，冲突如何处理？",
+            "出现问题谁负责，怎么分派和升级？"
+          ]
+        },
+        {
+          "name": "秦芮",
+          "role": "门诊系统工程师",
+          "intro": "我负责系统、数据、更新与故障处理。",
+          "problem": "",
+          "request": "",
+          "task": "从门诊系统工程师的视角核实门诊预约与分诊协作",
+          "focus": "系统数据与集成条件",
+          "questions": [
+            "目前用了哪些系统和工具？",
+            "数据有哪些字段、口径或质量问题？",
+            "有哪些接口可用，能读还是能写？",
+            "怎样判断数据质量，发现脏数据怎么处理？",
+            "数据多久更新，过期信息如何识别？",
+            "系统故障或接口中断时怎么办？"
+          ]
+        },
+        {
+          "name": "傅景",
+          "role": "医疗质控专员",
+          "intro": "我关注风险、权限、留存和审计。",
+          "problem": "",
+          "request": "",
+          "task": "从医疗质控专员的视角核实门诊预约与分诊协作",
+          "focus": "风险控制与审核边界",
+          "questions": [
+            "有哪些安全、合规或业务红线？",
+            "哪些操作必须人工审批，谁有权限？",
+            "怎么验收成功？试点标准是什么？",
+            "记录保留多久，删除和留存如何处理？",
+            "哪些情况需要兜底，怎样转人工？",
+            "审计需要什么凭证，怎么追溯修改？"
+          ]
+        },
+        {
+          "name": "叶书",
+          "role": "患者服务主管",
+          "intro": "我可以说明下游口径、投诉和反馈。",
+          "problem": "",
+          "request": "",
+          "task": "从患者服务主管的视角核实门诊预约与分诊协作",
+          "focus": "客户体验与协作反馈",
+          "questions": [
+            "跨部门交接有哪些冲突？",
+            "有多少单、花多久，有统计样本吗？",
+            "本次范围是什么，哪些事情不能自动做？",
+            "不同团队对成功和完成的口径有哪些差异？",
+            "客户投诉或反馈如何处理？",
+            "试点反馈怎么收集，怎样形成改进闭环？"
+          ]
+        }
+      ]
+    },
+    "discoveryHref": "/group-lab?project=healthcare-appointments&moduleId=healthcare-appointments",
+    "publicResearch": null,
+    "image": {
+      "src": "/catalog-artwork/illustrated/module-healthcare-appointments.jpg",
+      "alt": "东湖门诊中心 · 门诊预约与分诊协作的插画业务现场",
+      "caption": "门诊接待大厅 · 合成插画"
+    },
+    "title": "门诊预约与分诊协作",
+    "company": "东湖门诊中心",
+    "industry": "医疗",
+    "library": "general",
+    "roles": 6,
+    "href": "/lab",
+    "stages": [
+      "opportunity",
+      "discovery",
+      "definition"
+    ],
+    "problemProposers": {
+      "mode": "固定角色",
+      "primary": {
+        "id": "healthcare-appointments-r1",
+        "name": "林亦舟",
+        "role": "导诊护士",
+        "kind": "主问题提出人"
+      },
+      "co": [
+        {
+          "id": "healthcare-appointments-r0",
+          "name": "顾明岚",
+          "role": "门诊运营主任",
+          "kind": "共同提出人"
+        }
+      ],
+      "basis": "依据角色开场定位：直接描述一线痛点者与负责业务目标和范围者"
+    }
+  }
+}
