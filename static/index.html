@@ -4,13 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>门诊预约与分诊助手</title>
-<link rel="stylesheet" href="/chat.css">
+<link rel="stylesheet" href="/chat.css?v=20261105-2">
 </head>
 <body>
+<main class="app-shell">
 
 <header>
-  <div class="logo">🏥</div>
-  <div><b>门诊预约与分诊助手</b><br><span>制度问答 · 分诊推荐仅供参考，以分诊台医生判断为准</span></div>
+  <div class="header-main">
+    <div class="logo" aria-hidden="true">✚</div>
+    <div class="header-copy">
+      <span class="eyebrow">企业健康服务 · CARE DESK</span>
+      <h1>门诊预约与分诊助手</h1>
+      <p>制度问答 · 分诊推荐仅供参考，以分诊台医生判断为准</p>
+    </div>
+    <span class="service-badge">员工服务</span>
+  </div>
+  <div class="conversation-bar">
+    <span class="conversation-title">咨询对话</span>
+    <span class="service-topics">制度咨询<span aria-hidden="true">/</span>预约分诊<span aria-hidden="true">/</span>报销指引</span>
+  </div>
 </header>
 
 <div id="chat" role="log" aria-label="对话消息"></div>
@@ -18,9 +30,16 @@
 <div id="err" role="alert"></div>
 
 <footer>
-  <textarea aria-label="输入咨询问题" id="input" placeholder="请输入问题，例如：门诊报销比例是多少？" rows="1"></textarea>
-  <button id="send">发送</button>
+  <div class="input-shell">
+    <label for="input">向门诊助手提问</label>
+    <div class="input-row">
+      <textarea aria-label="输入咨询问题" id="input" placeholder="请输入问题，例如：门诊报销比例是多少？" rows="1"></textarea>
+      <button id="send">发送<span aria-hidden="true">↗</span></button>
+    </div>
+  </div>
+  <div class="composer-hint"><span>制度咨询 · 预约协作 · 报销指引</span><span>Enter 发送 · Shift + Enter 换行</span></div>
 </footer>
+</main>
 
 <script src="/stream.js"></script>
 <script>
