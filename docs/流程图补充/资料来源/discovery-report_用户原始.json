@@ -1,0 +1,627 @@
+{
+  "title": "东湖门诊中心 · 业务需求发现报告",
+  "generatedAt": "2026-11-06T00:46:47.254Z",
+  "library": "general",
+  "publicSources": [],
+  "case": "预约很多，候诊依然很久",
+  "industry": "医疗",
+  "opening": "我们在“门诊预约与分诊协作”上投入了很多人力。迟到患者与现场加号混在队列里，护士反复解释次序。管理层希望用 AI 改善，但还没有确定优先环节、验收标准和权限边界。请你先和各岗位聊聊，找出值得验证的业务需求。",
+  "coverage": {
+    "found": 2,
+    "total": 36,
+    "percent": 6
+  },
+  "note": "本报告基于合成场景访谈；需求为待验证假设。采集完整不等于真实业务需求已确认。",
+  "requirements": [
+    {
+      "title": "门诊预约与分诊协作：一线异常与操作辅助",
+      "owner": "导诊护士",
+      "status": "证据待补充",
+      "priority": "P1",
+      "evidence": [
+        {
+          "id": "healthcare-appointments-f10",
+          "source": "医疗-004 · 访谈事实记录",
+          "text": "迟到患者与现场加号混在队列里，护士反复解释次序",
+          "character": "林亦舟"
+        },
+        {
+          "id": "healthcare-appointments-f12",
+          "source": "医疗-006 · 流程与约束说明",
+          "text": "每日 1600 人次，导诊每日接到约 180 次排队咨询",
+          "character": "林亦舟"
+        }
+      ],
+      "acceptance": "每日 1600 人次，导诊每日接到约 180 次排队咨询"
+    }
+  ],
+  "gaps": [
+    {
+      "role": "门诊运营主任",
+      "character": "顾明岚",
+      "topic": "目标",
+      "question": "这次最希望达成的业务目标是什么？"
+    },
+    {
+      "role": "门诊运营主任",
+      "character": "顾明岚",
+      "topic": "流程",
+      "question": "请讲讲现在实际的处理流程。"
+    },
+    {
+      "role": "门诊运营主任",
+      "character": "顾明岚",
+      "topic": "验收",
+      "question": "怎么验收成功？试点标准是什么？"
+    },
+    {
+      "role": "门诊运营主任",
+      "character": "顾明岚",
+      "topic": "预算",
+      "question": "试点预算是多少，成本怎样核算？"
+    },
+    {
+      "role": "门诊运营主任",
+      "character": "顾明岚",
+      "topic": "决策",
+      "question": "谁参与决策，谁可以否决方案？"
+    },
+    {
+      "role": "门诊运营主任",
+      "character": "顾明岚",
+      "topic": "范围",
+      "question": "首期优先做什么，试点覆盖哪里？"
+    },
+    {
+      "role": "导诊护士",
+      "character": "林亦舟",
+      "topic": "异常",
+      "question": "能给我一个具体的异常或失败例子吗？"
+    },
+    {
+      "role": "导诊护士",
+      "character": "林亦舟",
+      "topic": "现场",
+      "question": "现场操作有什么限制，设备和网络情况怎样？"
+    },
+    {
+      "role": "导诊护士",
+      "character": "林亦舟",
+      "topic": "习惯",
+      "question": "一线有什么绕开系统的习惯，原因是什么？"
+    },
+    {
+      "role": "导诊护士",
+      "character": "林亦舟",
+      "topic": "复核",
+      "question": "辅助结果怎么复核，发现错误怎么办？"
+    },
+    {
+      "role": "排班管理员",
+      "character": "唐映秋",
+      "topic": "流程",
+      "question": "请讲讲现在实际的处理流程。"
+    },
+    {
+      "role": "排班管理员",
+      "character": "唐映秋",
+      "topic": "资料",
+      "question": "可以提供哪些材料、模板或证据？"
+    },
+    {
+      "role": "排班管理员",
+      "character": "唐映秋",
+      "topic": "权限",
+      "question": "哪些操作必须人工审批，谁有权限？"
+    },
+    {
+      "role": "排班管理员",
+      "character": "唐映秋",
+      "topic": "交接",
+      "question": "交接时需要什么，责任从何时转移？"
+    },
+    {
+      "role": "排班管理员",
+      "character": "唐映秋",
+      "topic": "规则",
+      "question": "业务规则如何维护，冲突如何处理？"
+    },
+    {
+      "role": "排班管理员",
+      "character": "唐映秋",
+      "topic": "责任",
+      "question": "出现问题谁负责，怎么分派和升级？"
+    },
+    {
+      "role": "门诊系统工程师",
+      "character": "秦芮",
+      "topic": "系统",
+      "question": "目前用了哪些系统和工具？"
+    },
+    {
+      "role": "门诊系统工程师",
+      "character": "秦芮",
+      "topic": "数据",
+      "question": "数据有哪些字段、口径或质量问题？"
+    },
+    {
+      "role": "门诊系统工程师",
+      "character": "秦芮",
+      "topic": "接口",
+      "question": "有哪些接口可用，能读还是能写？"
+    },
+    {
+      "role": "门诊系统工程师",
+      "character": "秦芮",
+      "topic": "质量",
+      "question": "怎样判断数据质量，发现脏数据怎么处理？"
+    },
+    {
+      "role": "门诊系统工程师",
+      "character": "秦芮",
+      "topic": "更新",
+      "question": "数据多久更新，过期信息如何识别？"
+    },
+    {
+      "role": "门诊系统工程师",
+      "character": "秦芮",
+      "topic": "故障",
+      "question": "系统故障或接口中断时怎么办？"
+    },
+    {
+      "role": "医疗质控专员",
+      "character": "傅景",
+      "topic": "风险",
+      "question": "有哪些安全、合规或业务红线？"
+    },
+    {
+      "role": "医疗质控专员",
+      "character": "傅景",
+      "topic": "权限",
+      "question": "哪些操作必须人工审批，谁有权限？"
+    },
+    {
+      "role": "医疗质控专员",
+      "character": "傅景",
+      "topic": "验收",
+      "question": "怎么验收成功？试点标准是什么？"
+    },
+    {
+      "role": "医疗质控专员",
+      "character": "傅景",
+      "topic": "留存",
+      "question": "记录保留多久，删除和留存如何处理？"
+    },
+    {
+      "role": "医疗质控专员",
+      "character": "傅景",
+      "topic": "兜底",
+      "question": "哪些情况需要兜底，怎样转人工？"
+    },
+    {
+      "role": "医疗质控专员",
+      "character": "傅景",
+      "topic": "审计",
+      "question": "审计需要什么凭证，怎么追溯修改？"
+    },
+    {
+      "role": "患者服务主管",
+      "character": "叶书",
+      "topic": "协作",
+      "question": "跨部门交接有哪些冲突？"
+    },
+    {
+      "role": "患者服务主管",
+      "character": "叶书",
+      "topic": "指标",
+      "question": "有多少单、花多久，有统计样本吗？"
+    },
+    {
+      "role": "患者服务主管",
+      "character": "叶书",
+      "topic": "边界",
+      "question": "本次范围是什么，哪些事情不能自动做？"
+    },
+    {
+      "role": "患者服务主管",
+      "character": "叶书",
+      "topic": "口径",
+      "question": "不同团队对成功和完成的口径有哪些差异？"
+    },
+    {
+      "role": "患者服务主管",
+      "character": "叶书",
+      "topic": "投诉",
+      "question": "客户投诉或反馈如何处理？"
+    },
+    {
+      "role": "患者服务主管",
+      "character": "叶书",
+      "topic": "反馈",
+      "question": "试点反馈怎么收集，怎样形成改进闭环？"
+    }
+  ],
+  "transcript": [
+    {
+      "id": "turn-1",
+      "speaker": "user",
+      "characterId": "healthcare-appointments-r0",
+      "text": "请你讲述一次具体的报销经历，遇到了什么具体的问题，如果可以量化就直接体现出来，越详细越好，我要记录一次具体的典型事件\n是否还有其他报销过程中，你觉得比较耗时耗力，不方便的地方吗？请具体用量化的形式告诉我",
+      "at": "2026-11-06T00:40:11.708Z"
+    },
+    {
+      "id": "turn-2",
+      "speaker": "character",
+      "characterId": "healthcare-appointments-r0",
+      "text": "报销不在我这条线上，我负责的是门诊预约与分诊协作，报销流程我没有经手过，具体事件和耗时数据我这边尚未核实，不能给你编一个。如果你要的是“典型事件”素材，我建议把口径换成门诊现场：迟到患者与现场加号混在队列里、护士反复解释次序，这是目前最值得记录的一类事件。但具体每天多少例、平均解释多久、对候诊时长影响多少，我手上没有核实过的数据，需要林亦舟从现场记录、秦芮从系统取数来支撑。另外提醒一句：你要的量化指标得先明确用途——是给管理层定试点优先级，还是做验收基线？这决定我们取哪几个口径、谁来签字确认。这个我需要先跟你对齐，再安排人配合取数。",
+      "at": "2026-11-06T00:40:11.708Z",
+      "factIds": [],
+      "mode": "在线模型对话",
+      "audit": {
+        "provider": "DeepSeek",
+        "model": "deepseek-flash",
+        "requestId": "89bf0169-9db1-4bc0-9529-11bf11636bda",
+        "at": "2026-11-06T00:40:11.708Z",
+        "durationMs": 2326,
+        "usage": {
+          "prompt_tokens": 833,
+          "completion_tokens": 180,
+          "total_tokens": 1013
+        },
+        "attemptCount": 1,
+        "selection": {
+          "provider": "DeepSeek",
+          "model": "deepseek-flash",
+          "requestId": "966d95c6-cc82-421e-bfaa-9eb36ddcb3dc",
+          "at": "2026-11-06T00:40:09.382Z",
+          "durationMs": 588,
+          "usage": {
+            "prompt_tokens": 447,
+            "completion_tokens": 6,
+            "total_tokens": 453
+          },
+          "attemptCount": 1
+        }
+      }
+    },
+    {
+      "id": "turn-3",
+      "speaker": "user",
+      "characterId": "healthcare-appointments-r1",
+      "text": "请你讲述一次具体的报销经历，遇到了什么具体的问题，如果可以量化就直接体现出来，越详细越好，我要记录一次具体的典型事件\n是否还有其他报销过程中，你觉得比较耗时耗力，不方便的地方吗？请具体用量化的形式告诉我",
+      "at": "2026-11-06T00:40:37.730Z"
+    },
+    {
+      "id": "turn-4",
+      "speaker": "character",
+      "characterId": "healthcare-appointments-r1",
+      "text": "这里可能有个口径要先对齐：我这边是导诊护士，负责的是门诊预约与分诊协作的现场操作和异常处理，报销不在我的职责范围内，我也没有可引用的报销经历或耗时数据，不能凭印象给你编一个“典型事件”。如果访谈目标其实是“现场异常与操作辅助”，我可以讲的是迟到患者与现场加号混在队列、护士反复解释次序这类场景，但具体次数、等待时长、加号量这些量化口径我尚未核实，需要从系统记录或运营口径取数。建议你先明确要记录的是哪类事件、量化指标由谁提供，我再按我实际经手的环节补充。",
+      "at": "2026-11-06T00:40:37.730Z",
+      "factIds": [],
+      "mode": "在线模型对话",
+      "audit": {
+        "provider": "DeepSeek",
+        "model": "deepseek-flash",
+        "requestId": "5b0a4c43-347b-4d10-9ec2-4e623b855d76",
+        "at": "2026-11-06T00:40:37.730Z",
+        "durationMs": 1585,
+        "usage": {
+          "prompt_tokens": 833,
+          "completion_tokens": 148,
+          "total_tokens": 981
+        },
+        "attemptCount": 1,
+        "selection": {
+          "provider": "DeepSeek",
+          "model": "deepseek-flash",
+          "requestId": "f07fb200-84a6-4647-adf8-a5ed81c57c8e",
+          "at": "2026-11-06T00:40:36.145Z",
+          "durationMs": 626,
+          "usage": {
+            "prompt_tokens": 458,
+            "completion_tokens": 6,
+            "total_tokens": 464
+          },
+          "attemptCount": 1
+        }
+      }
+    },
+    {
+      "id": "turn-5",
+      "speaker": "user",
+      "characterId": "healthcare-appointments-r1",
+      "text": "请你讲述一次具体的门诊经历，遇到了什么具体的问题，如果可以量化就直接体现出来，越详细越好，我要记录一次具体的典型事件\n是否还有其他门诊过程中，你觉得比较耗时耗力，不方便的地方吗？请具体用量化的形式告诉我",
+      "at": "2026-11-06T00:42:50.718Z"
+    },
+    {
+      "id": "turn-6",
+      "speaker": "character",
+      "characterId": "healthcare-appointments-r1",
+      "text": "我先按我实际经手的环节讲一个典型场景：迟到患者和现场加号同时到接待服务区，队列里既有按预约时段来的，也有临时加号的，次序混在一起，护士需要反复向患者解释谁先谁后。这个场景本身是明确的 [healthcare-appointments-f10]。量化的部分我只能给到已核实的口径：门诊每日 1600 人次，导诊每日接到约 180 次排队咨询 [healthcare-appointments-f12]。但单次解释耗时多久、迟到与加号各占多少、因此产生的投诉或重复咨询次数，我尚未核实，需要从系统记录或运营口径取数，不能凭印象编。\n\n至于其他耗时耗力的点，我倾向集中在“异常判断”和“解释口径”上，但具体频次和时长同样尚未核实。建议你先明确这次要记录的是哪一类事件、量化指标由谁提供，我再按我经手的环节补充，避免把不同口径混在一起。",
+      "at": "2026-11-06T00:42:50.718Z",
+      "factIds": [
+        "healthcare-appointments-f10",
+        "healthcare-appointments-f12"
+      ],
+      "mode": "在线模型对话",
+      "audit": {
+        "provider": "DeepSeek",
+        "model": "deepseek-flash",
+        "requestId": "34b44930-86c0-401f-bd2c-13c266b3f38e",
+        "at": "2026-11-06T00:42:50.718Z",
+        "durationMs": 1958,
+        "usage": {
+          "prompt_tokens": 1216,
+          "completion_tokens": 235,
+          "total_tokens": 1451
+        },
+        "attemptCount": 2,
+        "attempts": [
+          {
+            "provider": "DeepSeek",
+            "model": "deepseek-flash",
+            "requestId": "e0f9ade4-af46-4059-9527-dbac6245d138",
+            "at": "2026-11-06T00:42:48.760Z",
+            "durationMs": 2381,
+            "usage": {
+              "prompt_tokens": 1140,
+              "completion_tokens": 213,
+              "total_tokens": 1353
+            }
+          },
+          {
+            "provider": "DeepSeek",
+            "model": "deepseek-flash",
+            "requestId": "34b44930-86c0-401f-bd2c-13c266b3f38e",
+            "at": "2026-11-06T00:42:50.718Z",
+            "durationMs": 1958,
+            "usage": {
+              "prompt_tokens": 1216,
+              "completion_tokens": 235,
+              "total_tokens": 1451
+            }
+          }
+        ],
+        "selection": {
+          "provider": "DeepSeek",
+          "model": "deepseek-flash",
+          "requestId": "482edbe7-a29b-456d-9228-2d7fd2432bc2",
+          "at": "2026-11-06T00:42:46.379Z",
+          "durationMs": 539,
+          "usage": {
+            "prompt_tokens": 674,
+            "completion_tokens": 48,
+            "total_tokens": 722
+          },
+          "attemptCount": 1
+        }
+      }
+    }
+  ],
+  "methodContext": {
+    "buyer": "顾明岚",
+    "operator": "林亦舟"
+  },
+  "framework": "基于 fde-simulation 的 workflow-decomposition、outcome-risk-matrix 与 4-source-convergence 框架进行需求归纳。",
+  "analysis": {
+    "summary": "本轮仅采集到导诊护士视角的两条已核实事实：迟到患者与现场加号混队、护士反复解释次序（f10），以及每日1600人次、导诊每日约180次排队咨询（f12）。访谈中两次提问误用了“报销”口径，被访谈对象纠正，未产生有效新事实；单次解释耗时、迟到与加号占比、投诉与重复咨询次数、候诊时长基线均未核实。因此只能形成围绕“分诊次序解释负担”的待验证需求假设，不能推断AI能力、权限边界或验收标准。调查覆盖率2/36，不代表任何验收通过。",
+    "hypotheses": [
+      {
+        "title": "分诊次序解释是当前最集中的一线负担，值得作为首个验证切入点",
+        "owner": "导诊护士林亦舟（待确认）",
+        "priority": "P0",
+        "reasoning": "f10明确描述迟到患者与现场加号混队、护士反复解释次序；f12显示导诊每日约180次排队咨询，相对每日1600人次占比可观。但解释耗时、其中因次序争议引发的比例尚未核实，无法判断该负担是否确为候诊延长的主因。",
+        "nextStep": "由林亦舟按班次抽样记录1周内排队咨询的分类（次序解释/时段查询/其他）与单次时长，秦芮从系统取迟到与加号数量；以“次序解释类咨询占比与单次时长”作为验证指标，由顾明岚确认口径后签字。",
+        "evidenceIds": [
+          "healthcare-appointments-f10",
+          "healthcare-appointments-f12"
+        ]
+      },
+      {
+        "title": "迟到患者与现场加号共用队列是次序争议的结构性来源",
+        "owner": "门诊运营主任顾明岚（待确认）",
+        "priority": "P0",
+        "reasoning": "f10显示两类患者混在同一队列，护士需人工解释先后；这提示问题可能出在队列规则与信息展示，而非单纯人力不足。但迟到与加号各自的数量、现行排序规则文本、是否已有系统提示均未采集，属推断。",
+        "nextStep": "访谈顾明岚与秦芮，取得现行分诊排序规则与系统队列展示方式；统计一周迟到与加号例数，验证“混队”是否为可量化的主要冲突源，再决定是否进入方案讨论。",
+        "evidenceIds": [
+          "healthcare-appointments-f10"
+        ]
+      },
+      {
+        "title": "排队咨询量可作为分诊改善的候选基线指标，但需先明确用途",
+        "owner": "门诊运营主任顾明岚（待确认）",
+        "priority": "P1",
+        "reasoning": "f12给出每日约180次排队咨询，是当前唯一可引用的量化口径；访谈中林亦舟也提出量化指标用途（试点优先级或验收基线）需先对齐。该数字来源与统计方式尚未核实，不能直接作为验收基线。",
+        "nextStep": "由秦芮说明180次的取数来源与统计口径，顾明岚明确该指标用于试点排序还是验收；确认前不写入任何验收标准。",
+        "evidenceIds": [
+          "healthcare-appointments-f12"
+        ]
+      },
+      {
+        "title": "候诊时长的现状基线尚缺失，需先补采再谈改善目标",
+        "owner": "门诊系统工程师秦芮（待确认）",
+        "priority": "P1",
+        "reasoning": "案例主题为“预约很多、候诊依然很久”，但现有两条事实均未包含候诊时长数据；林亦舟明确表示等待时长未核实。缺少基线则无法设定可验收的改善目标，此为证据缺口而非已证需求。",
+        "nextStep": "访谈秦芮确认系统是否可导出分时段候诊时长；若可，取近4周数据形成基线，由傅景或顾明岚确认口径后再讨论目标值。",
+        "evidenceIds": [
+          "healthcare-appointments-f12"
+        ]
+      },
+      {
+        "title": "AI介入的权限边界与人工确认点需在方案前界定",
+        "owner": "医疗质控专员傅景（待确认）",
+        "priority": "P1",
+        "reasoning": "管理层提出用AI改善但未定权限边界；现有事实仅涉及现场解释与队列，未涉及任何系统能力或政策授权。任何涉及排序调整或患者告知的建议都需质控与运营确认，当前无证据支持具体权限设计。",
+        "nextStep": "访谈傅景与叶书，明确分诊次序调整、患者告知话术的审批责任人与不可逾越的红线；形成权限清单草案供管理层确认，不作为已定规则。",
+        "evidenceIds": [
+          "healthcare-appointments-f10"
+        ]
+      }
+    ],
+    "followUps": [
+      "请林亦舟按班次记录一周排队咨询的分类与单次时长，可否配合？由谁复核？",
+      "请秦芮说明每日1600人次与180次咨询的取数来源、统计周期与口径。",
+      "现行迟到患者与现场加号的排序规则文本在哪里？由谁制定和解释？",
+      "系统能否导出分时段候诊时长？近4周数据是否可得？",
+      "顾明岚希望180次咨询指标用于试点排序还是验收基线？由谁签字？",
+      "傅景：分诊次序调整与患者告知话术分别由谁审批？有哪些不可逾越的限制？",
+      "叶书：患者对次序的投诉目前如何记录？是否有可引用的分类数据？",
+      "唐映秋：排班与加号额度是否影响队列冲突？现有额度规则是什么？"
+    ],
+    "limitations": "仅2条已核实事实，覆盖率2/36；访谈中“报销”口径提问无效，未获得新事实。迟到与加号占比、解释耗时、候诊时长基线、投诉数据、排序规则文本、系统取数能力与权限政策均未采集，上述假设均为待验证推断，不构成需求确认或验收依据。建议先补充对顾明岚、秦芮、傅景的访谈与取数后再收敛。",
+    "audit": {
+      "provider": "DeepSeek",
+      "model": "deepseek-flash",
+      "requestId": "de9bd03d-e193-49da-af49-65920bfeaea7",
+      "at": "2026-11-06T00:46:47.254Z",
+      "durationMs": 8767,
+      "usage": {
+        "prompt_tokens": 1454,
+        "completion_tokens": 1213,
+        "total_tokens": 2667
+      },
+      "attemptCount": 1
+    }
+  },
+  "methodology": {
+    "version": 1,
+    "guide": [
+      {
+        "id": "workflow-decomposition",
+        "name": "业务流程拆解",
+        "file": "frameworks/workflow-decomposition.md",
+        "question": "问题发生在哪一步，为什么要这样划分智能体？",
+        "steps": [
+          "先画人工现状泳道，写出触发、输入、8–15个处理步骤、交接和异常。",
+          "区分判断点与执行点；按使用的数据、权限、模型能力与失败方式组合执行步骤。",
+          "在不可逆动作前设置确定性校验；为低置信、缺资料、冲突和越权安排具名人工接收人。"
+        ],
+        "output": "现状流程 → 失败方式 → 智能体/工具边界 → 校验与人工升级路径"
+      },
+      {
+        "id": "outcome-risk-matrix",
+        "name": "业务结果与不可逆风险矩阵",
+        "file": "frameworks/outcome-risk-matrix.md",
+        "question": "多个需求中，先做哪个最小可验证方案？",
+        "steps": [
+          "列出3–5个候选切入点，分别说明改善的业务结果、现状基线和投入。",
+          "评估失败何时被谁看见、能否在损害前拦截、是否可以撤销；不要把模型置信度等同于业务风险。",
+          "优先选择高价值、可拦截且可恢复的切入点；高风险需硬约束和责任人否决权，价值或风险未知先补证据。"
+        ],
+        "output": "候选方案 → 价值/风险比较 → 选择与暂缓理由 → 验收指标与停止条件"
+      },
+      {
+        "id": "4-source-convergence",
+        "name": "四来源收敛",
+        "file": "frameworks/4-source-convergence.md",
+        "question": "谁说要做，哪里真的坏了，范围允许什么，技术是否可行？",
+        "steps": [
+          "Buyer：核实业务目标、预算、优先级和决定权；Operator：用最近一单还原真实操作和失败位置。",
+          "Brief：核对书面目标、范围、时间和排除项；Industry：寻找可比技术实践，并核实本项目的数据与接口差异。",
+          "检查四个视角是否指向同一瓶颈。分歧保留在问题清单：一线帮助定位故障，决策者确认价值，Brief约束范围，行业证据帮助判断可行性。"
+        ],
+        "output": "四视角陈述与来源 → 收敛/分歧 → 待核实问题 → 有边界的需求假设"
+      }
+    ],
+    "sources": [
+      {
+        "id": "buyer",
+        "name": "Buyer · 业务决策者",
+        "statement": "顾明岚",
+        "evidenceIds": [],
+        "status": "待访谈"
+      },
+      {
+        "id": "brief",
+        "name": "Brief · 书面需求",
+        "statement": "我们在“门诊预约与分诊协作”上投入了很多人力。迟到患者与现场加号混在队列里，护士反复解释次序。管理层希望用 AI 改善，但还没有确定优先环节、验收标准和权限边界。请你先和各岗位聊聊，找出值得验证的业务需求。",
+        "evidenceIds": [],
+        "status": "当前只有场景开场；书面Brief原文与版本待补"
+      },
+      {
+        "id": "industry",
+        "name": "Industry · 行业可行性",
+        "statement": "需要可比技术案例、数据条件和接口能力的核验材料。企业业务介绍不能证明技术可行。",
+        "evidenceIds": [],
+        "status": "待补行业实践与本项目适用性验证"
+      },
+      {
+        "id": "operator",
+        "name": "Operator · 一线使用者",
+        "statement": "林亦舟",
+        "evidenceIds": [
+          "healthcare-appointments-f10",
+          "healthcare-appointments-f12"
+        ],
+        "status": "已采集现场陈述，仍需样本与操作观察核实"
+      }
+    ],
+    "trace": [
+      {
+        "id": "REQ-1",
+        "title": "分诊次序解释是当前最集中的一线负担，值得作为首个验证切入点",
+        "evidenceIds": [
+          "healthcare-appointments-f10",
+          "healthcare-appointments-f12"
+        ],
+        "derivation": "f10明确描述迟到患者与现场加号混队、护士反复解释次序；f12显示导诊每日约180次排队咨询，相对每日1600人次占比可观。但解释耗时、其中因次序争议引发的比例尚未核实，无法判断该负担是否确为候诊延长的主因。",
+        "priority": "P0",
+        "decision": "候选需求；需用结果与不可逆风险矩阵比较，P0/P1/P2不等于已完成价值风险评分。",
+        "verification": "由林亦舟按班次抽样记录1周内排队咨询的分类（次序解释/时段查询/其他）与单次时长，秦芮从系统取迟到与加号数量；以“次序解释类咨询占比与单次时长”作为验证指标，由顾明岚确认口径后签字。"
+      },
+      {
+        "id": "REQ-2",
+        "title": "迟到患者与现场加号共用队列是次序争议的结构性来源",
+        "evidenceIds": [
+          "healthcare-appointments-f10"
+        ],
+        "derivation": "f10显示两类患者混在同一队列，护士需人工解释先后；这提示问题可能出在队列规则与信息展示，而非单纯人力不足。但迟到与加号各自的数量、现行排序规则文本、是否已有系统提示均未采集，属推断。",
+        "priority": "P0",
+        "decision": "候选需求；需用结果与不可逆风险矩阵比较，P0/P1/P2不等于已完成价值风险评分。",
+        "verification": "访谈顾明岚与秦芮，取得现行分诊排序规则与系统队列展示方式；统计一周迟到与加号例数，验证“混队”是否为可量化的主要冲突源，再决定是否进入方案讨论。"
+      },
+      {
+        "id": "REQ-3",
+        "title": "排队咨询量可作为分诊改善的候选基线指标，但需先明确用途",
+        "evidenceIds": [
+          "healthcare-appointments-f12"
+        ],
+        "derivation": "f12给出每日约180次排队咨询，是当前唯一可引用的量化口径；访谈中林亦舟也提出量化指标用途（试点优先级或验收基线）需先对齐。该数字来源与统计方式尚未核实，不能直接作为验收基线。",
+        "priority": "P1",
+        "decision": "候选需求；需用结果与不可逆风险矩阵比较，P0/P1/P2不等于已完成价值风险评分。",
+        "verification": "由秦芮说明180次的取数来源与统计口径，顾明岚明确该指标用于试点排序还是验收；确认前不写入任何验收标准。"
+      },
+      {
+        "id": "REQ-4",
+        "title": "候诊时长的现状基线尚缺失，需先补采再谈改善目标",
+        "evidenceIds": [
+          "healthcare-appointments-f12"
+        ],
+        "derivation": "案例主题为“预约很多、候诊依然很久”，但现有两条事实均未包含候诊时长数据；林亦舟明确表示等待时长未核实。缺少基线则无法设定可验收的改善目标，此为证据缺口而非已证需求。",
+        "priority": "P1",
+        "decision": "候选需求；需用结果与不可逆风险矩阵比较，P0/P1/P2不等于已完成价值风险评分。",
+        "verification": "访谈秦芮确认系统是否可导出分时段候诊时长；若可，取近4周数据形成基线，由傅景或顾明岚确认口径后再讨论目标值。"
+      },
+      {
+        "id": "REQ-5",
+        "title": "AI介入的权限边界与人工确认点需在方案前界定",
+        "evidenceIds": [
+          "healthcare-appointments-f10"
+        ],
+        "derivation": "管理层提出用AI改善但未定权限边界；现有事实仅涉及现场解释与队列，未涉及任何系统能力或政策授权。任何涉及排序调整或患者告知的建议都需质控与运营确认，当前无证据支持具体权限设计。",
+        "priority": "P1",
+        "decision": "候选需求；需用结果与不可逆风险矩阵比较，P0/P1/P2不等于已完成价值风险评分。",
+        "verification": "访谈傅景与叶书，明确分诊次序调整、患者告知话术的审批责任人与不可逾越的红线；形成权限清单草案供管理层确认，不作为已定规则。"
+      }
+    ],
+    "conclusion": "先从已采集事实形成问题假设，再约定业务结果、范围、失败控制和验收。缺少的来源标记待补，不能把六人访谈完整率当作四来源收敛或需求确认。"
+  },
+  "handoff": {
+    "reportId": "REPORT-7db5e6a0-5690-47a4-925f-ab54e7fee637",
+    "version": 1,
+    "sourceStage": "opportunity",
+    "targetStage": "discovery",
+    "href": "/group-training?project=healthcare-appointments&attemptId=b0ecedc6-821f-4dda-b611-6870bd2211f6&stage=discovery",
+    "stageHref": "/group-training?project=healthcare-appointments&attemptId=b0ecedc6-821f-4dda-b611-6870bd2211f6&stage=opportunity"
+  }
+}

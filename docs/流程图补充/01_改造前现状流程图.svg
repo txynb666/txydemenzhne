@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1900" viewBox="0 0 1500 1900"><rect width="100%" height="100%" fill="white"/>
+<text x="750" y="74.92" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="38" fill="#203d48">东湖门诊中心｜改造前现状流程图</text>
+<text x="750" y="118.82" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="23" fill="#607582">教学合成案例整理 · 人工核对与解释为主 · 配套改造后目标图使用</text>
+<rect x="520" y="170" width="490" height="100" rx="20" fill="#eef6f5" stroke="#559b92" stroke-width="2"/>
+<text x="765.0" y="211.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">1 预约建号</text>
+<text x="765.0" y="246.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">患者 / 预约平台</text>
+<rect x="520" y="310" width="490" height="100" rx="20" fill="#eef6f5" stroke="#559b92" stroke-width="2"/>
+<text x="765.0" y="351.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">2 到院签到与登记</text>
+<text x="765.0" y="386.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">自助机 / 导诊台</text>
+<rect x="520" y="450" width="490" height="100" rx="20" fill="#eef6f5" stroke="#559b92" stroke-width="2"/>
+<text x="765.0" y="491.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">3 人工预检分诊</text>
+<text x="765.0" y="526.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">分诊护士</text>
+<rect x="520" y="590" width="490" height="100" rx="20" fill="#fff6e2" stroke="#cc8b21" stroke-width="2"/>
+<text x="765.0" y="631.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">4 是否存在急危风险？</text>
+<text x="765.0" y="666.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">由医护人员专业判断</text>
+<rect x="520" y="770" width="490" height="100" rx="20" fill="#fff6e2" stroke="#cc8b21" stroke-width="2"/>
+<text x="765.0" y="811.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">5 常规门诊核对到院情况</text>
+<text x="765.0" y="846.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">导诊护士核实迟到 / 加号 / 爽约</text>
+<rect x="520" y="950" width="490" height="100" rx="20" fill="#fff6e2" stroke="#cc8b21" stroke-width="2"/>
+<text x="765.0" y="991.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">6 人工维护候诊顺序</text>
+<text x="765.0" y="1026.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">导诊反复解释次序与等待</text>
+<rect x="520" y="1130" width="490" height="100" rx="20" fill="#eef6f5" stroke="#559b92" stroke-width="2"/>
+<text x="765.0" y="1171.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">7 医生接诊</text>
+<text x="765.0" y="1206.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">临床判断与处置</text>
+<rect x="520" y="1310" width="490" height="100" rx="20" fill="#eef6f5" stroke="#559b92" stroke-width="2"/>
+<text x="765.0" y="1351.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">8 检查 / 处置交接</text>
+<text x="765.0" y="1386.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">开单医生与接收岗位人工确认</text>
+<rect x="520" y="1490" width="490" height="100" rx="20" fill="#eef6f5" stroke="#559b92" stroke-width="2"/>
+<text x="765.0" y="1531.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">9 结果回诊或离院</text>
+<text x="765.0" y="1566.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">患者 / 医生 / 护士</text>
+<polyline points="765,270 765,310" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="765,310 759.345448056554,298.2941876694152 770.654551943446,298.2941876694152" fill="#7c8c98"/>
+<polyline points="765,410 765,450" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="765,450 759.345448056554,438.2941876694152 770.654551943446,438.2941876694152" fill="#7c8c98"/>
+<polyline points="765,550 765,590" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="765,590 759.345448056554,578.2941876694152 770.654551943446,578.2941876694152" fill="#7c8c98"/>
+<polyline points="765,690 765,770" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="765,770 759.345448056554,758.2941876694152 770.654551943446,758.2941876694152" fill="#7c8c98"/>
+<rect x="690.0" y="710" width="150.0" height="40" rx="12" fill="white"/>
+<text x="765" y="737.14" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="21" fill="#3b6b94">否：常规门诊</text>
+<polyline points="765,870 765,950" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="765,950 759.345448056554,938.2941876694152 770.654551943446,938.2941876694152" fill="#7c8c98"/>
+<polyline points="765,1050 765,1130" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="765,1130 759.345448056554,1118.2941876694151 770.654551943446,1118.2941876694151" fill="#7c8c98"/>
+<polyline points="765,1230 765,1310" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="765,1310 759.345448056554,1298.2941876694151 770.654551943446,1298.2941876694151" fill="#7c8c98"/>
+<polyline points="765,1410 765,1490" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="765,1490 759.345448056554,1478.2941876694151 770.654551943446,1478.2941876694151" fill="#7c8c98"/>
+<rect x="60" y="770" width="350" height="100" rx="20" fill="#fff0ee" stroke="#da6262" stroke-width="2"/>
+<text x="235.0" y="811.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">急症升级</text>
+<text x="235.0" y="846.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">按院方流程优先处置</text>
+<polyline points="520,640 235,640 235,770" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="235,770 229.345448056554,758.2941876694152 240.654551943446,758.2941876694152" fill="#7c8c98"/>
+<rect x="271.0" y="620" width="108.0" height="40" rx="12" fill="white"/>
+<text x="325" y="647.14" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="21" fill="#3b6b94">是：急症</text>
+<polyline points="235,870 235,1180 520,1180" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="520,1180 508.2941876694152,1185.654551943446 508.2941876694152,1174.345448056554" fill="#7c8c98"/>
+<rect x="1080" y="770" width="350" height="110" rx="20" fill="#fff6e2" stroke="#cc8b21" stroke-width="2"/>
+<text x="1255.0" y="816.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">异常：排班临时变化</text>
+<text x="1255.0" y="851.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">信息不同步 / 队列争议</text>
+<rect x="1080" y="960" width="350" height="110" rx="20" fill="#fff6e2" stroke="#cc8b21" stroke-width="2"/>
+<text x="1255.0" y="1006.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">护士联系排班管理员</text>
+<text x="1255.0" y="1041.0" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">人工查证、沟通并重新确认</text>
+<polyline points="1010,820 1080,820" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="1080,820 1068.2941876694151,825.654551943446 1068.2941876694151,814.345448056554" fill="#7c8c98"/>
+<rect x="1012.0" y="728" width="66.0" height="40" rx="12" fill="white"/>
+<text x="1045" y="755.14" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="21" fill="#3b6b94">异常</text>
+<polyline points="1255,880 1255,960" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="1255,960 1249.345448056554,948.2941876694152 1260.654551943446,948.2941876694152" fill="#7c8c98"/>
+<polyline points="1080,1015 1040,1015 1040,1000 1010,1000" fill="none" stroke="#7c8c98" stroke-width="3"/>
+<polygon points="1010,1000 1021.7058123305848,994.345448056554 1021.7058123305848,1005.654551943446" fill="#7c8c98"/>
+<rect x="1154.5" y="1095" width="171.0" height="40" rx="12" fill="white"/>
+<text x="1240" y="1122.14" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="21" fill="#3b6b94">复核后恢复排队</text>
+<rect x="140" y="1680" width="1220" height="130" rx="20" fill="#fff6e2" stroke="#cc8b21" stroke-width="2"/>
+<text x="750.0" y="1718.5" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">现状痛点：迟到与加号混排、排班变化未同步，依赖人工反复解释。</text>
+<text x="750.0" y="1753.5" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">改造方向：只读核对、解释草稿与异常转人工；专业分诊仍由医护确认。</text>
+<text x="750.0" y="1788.5" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#203d48">定量基线与改善效果需另行测量，图中不虚构等待时长或收益。</text>
+<text x="750" y="1857.14" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="21" fill="#607582">依据：用户提供的四份可核对资料、discovery-report.json与配套图；2026年11月6日</text>
+</svg>

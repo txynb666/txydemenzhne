@@ -1,0 +1,20 @@
+flowchart TD
+ A[1 预约建号：患者 / 预约平台] --> B[2 到院签到与登记：自助机 / 导诊台]
+ B --> C[3 人工预检分诊：分诊护士]
+ C --> D{4 是否存在急危风险？医护人员专业判断}
+ D -->|是：急症| E[急症升级：按院方流程优先处置]
+ D -->|否：常规门诊| F[5 导诊护士人工核实迟到 / 加号 / 爽约]
+ F --> G[6 人工维护候诊顺序，反复解释次序与等待]
+ F -->|异常| X[排班临时变化 / 信息不同步 / 队列争议]
+ X --> Y[护士联系排班管理员：人工查证、沟通并重新确认]
+ Y -->|复核后恢复排队| G
+ E --> H[7 医生接诊：临床判断与处置]
+ G --> H
+ H --> I[8 检查 / 处置交接：开单医生与接收岗位人工确认]
+ I --> J[9 结果回诊或离院：患者 / 医生 / 护士]
+ classDef normal fill:#eef6f5,stroke:#559b92,color:#203d48
+ classDef manual fill:#fff6e2,stroke:#cc8b21,color:#203d48
+ classDef urgent fill:#fff0ee,stroke:#da6262,color:#203d48
+ class A,B,C,H,I,J normal
+ class D,F,G,X,Y manual
+ class E urgent
