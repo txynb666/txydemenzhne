@@ -99,6 +99,14 @@ def init_tools_db():
             used       INTEGER DEFAULT 0,
             created_at REAL NOT NULL
         );
+        CREATE TABLE IF NOT EXISTS appointment_reviews (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            appointment_id INTEGER NOT NULL UNIQUE,
+            reviewer TEXT NOT NULL,
+            decision TEXT NOT NULL,
+            reason TEXT NOT NULL,
+            created_at TEXT DEFAULT (datetime('now','localtime'))
+        );
         """)
         # 无号源时插入演示数据，保证开箱可用
         if not c.execute("SELECT 1 FROM clinic_slots LIMIT 1").fetchone():
@@ -347,6 +355,8 @@ def create_appointment(slot_id: str, symptom_summary: str, recommended_dept: str
     """创建预约单。AI 场景下 triage_confirmed_by 必须为 None → 待分诊台确认。"""
     if not slot_id or not idempotency_key:
         return _fail(6006, "缺少必要参数（slot_id / idempotency_key）")
+    if triage_confirmed_by:
+        return _fail(1003, "AI工具不得指定分诊确认人，请由授权管理员在后台审核")
 
     # Retries must return the original booking even after its slot becomes full.
     with db() as c:
@@ -382,7 +392,7 @@ def create_appointment(slot_id: str, symptom_summary: str, recommended_dept: str
             return _fail(4003, "号源已被约满，请重新选择时段")
         slot = c.execute("SELECT * FROM clinic_slots WHERE id=?", (slot_id,)).fetchone()
         # AI 推荐场景：强制 pending_triage，不允许模型自行确认为 confirmed
-        status = "confirmed" if triage_confirmed_by else "pending_triage"
+        status = "pending_triage"
         cur = c.execute(
             "INSERT INTO appointments(user_id,slot_id,dept,symptom_summary,recommended_dept,"
             "triage_confirmed_by,status,conv_id,idem_key) VALUES (?,?,?,?,?,?,?,?,?)",
@@ -395,6 +405,28 @@ def create_appointment(slot_id: str, symptom_summary: str, recommended_dept: str
                 "notice": "预约已提交，等待分诊台人工确认后生效" if status == "pending_triage"
                           else "预约已确认"},
                "预约创建成功")
+
+
+def review_appointment(appointment_id: int, reviewer: str, decision: str, reason: str):
+    """Admin-only route supplies reviewer identity; this is not an AI tool."""
+    if decision not in ('confirm', 'reject') or not reason.strip() or not reviewer:
+        return _fail(6002, "审核须填写决定、审核说明和服务端确认身份")
+    with _lock, db() as c:
+        # SQLite reserves the write transaction before reading pending state.
+        c.execute('BEGIN IMMEDIATE')
+        row = c.execute('SELECT * FROM appointments WHERE id=?', (appointment_id,)).fetchone()
+        if not row:
+            return _fail(2001, "预约不存在")
+        if row['status'] != 'pending_triage':
+            return _fail(2002, "该预约已审核或不处于待审核状态")
+        status = 'confirmed' if decision == 'confirm' else 'cancelled'
+        c.execute('UPDATE appointments SET status=?,triage_confirmed_by=? WHERE id=?',
+                  (status, reviewer, appointment_id))
+        if decision == 'reject':
+            c.execute('UPDATE clinic_slots SET booked=booked-1 WHERE id=? AND booked>0', (row['slot_id'],))
+        c.execute('INSERT INTO appointment_reviews(appointment_id,reviewer,decision,reason) VALUES (?,?,?,?)',
+                  (appointment_id, reviewer, decision, reason.strip()))
+    return _ok({'appointment_id': appointment_id, 'status': status, 'reviewer': reviewer}, '审核完成')
 
 
 def create_reimbursement_draft(visit_type: str, amount: float, invoice_type: str,

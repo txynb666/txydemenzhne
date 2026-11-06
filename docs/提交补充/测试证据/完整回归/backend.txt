@@ -1,0 +1,20 @@
+.......................................                                  [100%]
+============================== warnings summary ===============================
+..\test-deps\starlette\testclient.py:37
+  C:\Users\Lenovo\Documents\Codex\2026-11-05\w\work\test-deps\starlette\testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+tests/test_submission_scenarios.py::test_scenario_normal
+tests/test_submission_scenarios.py::test_scenario_boundary
+tests/test_submission_scenarios.py::test_scenario_permissions
+  C:\Users\Lenovo\Documents\Codex\2026-11-05\w\work\clinic-upgrade\app\api\admin\routes.py:86: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=JWT_EXPIRE_HOURS),
+
+tests/test_submission_scenarios.py::test_scenario_normal
+  C:\Users\Lenovo\Documents\Codex\2026-11-05\w\work\test-deps\starlette\templating.py:161: DeprecationWarning: The `name` is not the first parameter anymore. The first parameter should be the `Request` instance.
+  Replace `TemplateResponse(name, {"request": request})` by `TemplateResponse(request, name)`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: C:\Users\Lenovo\Documents\Codex\2026-11-05\w\work\clinic-upgrade\docs\提交补充\测试证据\完整回归\pytest.xml -
+39 passed, 5 warnings in 2.82s

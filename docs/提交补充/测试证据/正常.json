@@ -1,0 +1,42 @@
+{
+  "category": "正常",
+  "status": "PASS",
+  "time": "2026-11-06T01:52:56.824223+00:00",
+  "scope": "Offline HTTP/SQLite integration; model faults injected, not clinical validation.",
+  "steps": [
+    {
+      "operation": "创建演示预约",
+      "result": "pending_triage"
+    },
+    {
+      "operation": "管理员查询待办和审核页面",
+      "result": "HTTP 200，找到预约"
+    },
+    {
+      "operation": "填写原因并人工确认",
+      "result": {
+        "code": 0,
+        "message": "审核完成",
+        "data": {
+          "appointment_id": 6,
+          "status": "confirmed",
+          "reviewer": "admin"
+        }
+      }
+    },
+    {
+      "operation": "查询审核留痕",
+      "result": {
+        "reviewer": "admin",
+        "decision": "confirm"
+      }
+    },
+    {
+      "operation": "管理员审核发布提示词并恢复原版本",
+      "result": {
+        "code": 0,
+        "version": 2
+      }
+    }
+  ]
+}

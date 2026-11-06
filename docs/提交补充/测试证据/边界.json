@@ -1,0 +1,39 @@
+{
+  "category": "边界",
+  "status": "PASS",
+  "time": "2026-11-06T01:52:56.886778+00:00",
+  "scope": "Offline HTTP/SQLite integration; model faults injected, not clinical validation.",
+  "steps": [
+    {
+      "operation": "空审核说明",
+      "result": "HTTP 422"
+    },
+    {
+      "operation": "退回一次",
+      "result": {
+        "code": 0,
+        "message": "审核完成",
+        "data": {
+          "appointment_id": 7,
+          "status": "cancelled",
+          "reviewer": "admin"
+        }
+      }
+    },
+    {
+      "operation": "重复退回",
+      "result": {
+        "code": 2002,
+        "message": "该预约已审核或不处于待审核状态",
+        "data": {}
+      }
+    },
+    {
+      "operation": "容量和审核次数对账",
+      "result": {
+        "booked": 0,
+        "review_rows": 1
+      }
+    }
+  ]
+}

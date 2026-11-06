@@ -131,6 +131,6 @@ def test_slot_capacity_not_exceeded():
     remain = s["remain"]
     for i in range(remain):
         tools.create_appointment(s["slot_id"], "test", "皮肤科",
-                                 "分诊台", f"idem-cap-{i}", user_id=f"u{i}")
+                                 None, f"idem-cap-{i}", user_id=f"u{i}")
     after = tools.check_slot_availability(s["slot_id"], user_id=USER)
     assert after["data"]["available"] is False

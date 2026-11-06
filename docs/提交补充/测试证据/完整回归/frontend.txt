@@ -1,0 +1,14 @@
+✔ handles UTF-8 and CRLF split across network chunks (20.0923ms)
+✔ HTTP error JSON becomes a visible message (1.0497ms)
+✔ rejects truncated and malformed streams (0.9336ms)
+✔ error event preserves provider guidance (1.0478ms)
+✔ confirm is a valid terminal event (0.4165ms)
+✔ flush preserves queued text before a done event, even before any timer fires (1.4917ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 141.3828

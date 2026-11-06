@@ -1,0 +1,30 @@
+{
+  "category": "权限",
+  "status": "PASS",
+  "time": "2026-11-06T01:52:56.946572+00:00",
+  "scope": "Offline HTTP/SQLite integration; model faults injected, not clinical validation.",
+  "steps": [
+    {
+      "operation": "未登录访问审核列表",
+      "result": {
+        "code": 1005,
+        "message": "登录已过期，请重新登录",
+        "data": null
+      }
+    },
+    {
+      "operation": "普通员工调用确认接口",
+      "result": {
+        "code": 1003,
+        "message": "无权限访问该功能",
+        "data": null
+      }
+    },
+    {
+      "operation": "数据库状态对账",
+      "result": {
+        "status": "pending_triage"
+      }
+    }
+  ]
+}

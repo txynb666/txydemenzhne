@@ -23,6 +23,8 @@ from fastapi import APIRouter, Depends, File, Form, Request, UploadFile, Query
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
+from pydantic import Field
+from typing import Literal
 
 from app.repositories import admin_db as adb
 from app import rag
@@ -31,6 +33,18 @@ router = APIRouter(prefix="/admin")
 from app.core.config import TEMPLATE_DIR, KB_UPLOAD_DIR, JWT_SECRET, JWT_ALG, JWT_EXPIRE_HOURS, COOKIE_NAME
 
 templates = Jinja2Templates(directory=str(TEMPLATE_DIR))
+
+
+class AppointmentReviewIn(BaseModel):
+    decision: Literal['confirm', 'reject']
+    reason: str = Field(..., min_length=1, max_length=500)
+
+
+@router.get('/triage', response_class=HTMLResponse)
+def page_triage(request: Request):
+    user = require_admin(request)
+    return templates.TemplateResponse('triage.html', {'request': request, 'user': user, 'active': 'triage'})
+
 
 # JWT 配置（生产环境务必从环境变量注入密钥）
 
@@ -347,3 +361,19 @@ def api_audit_flag(body: FlagIn, user=Depends(require_admin)):
     if not adb.flag_message(body.message_id, body.flagged, body.reason, user["username"]):
         return JSONResponse({"code": 5006, "message": "消息不存在", "data": None})
     return ok(None, "已标记为疑似违规" if body.flagged else "已取消标记")
+
+
+@router.get('/api/appointments/pending')
+def pending_appointments(user=Depends(require_admin)):
+    from app.services import tools
+    with tools.db() as c:
+        rows = c.execute("SELECT id,dept,symptom_summary,recommended_dept,created_at FROM appointments "
+                         "WHERE status='pending_triage' ORDER BY id DESC LIMIT 100").fetchall()
+    return ok([dict(row) for row in rows])
+
+
+@router.post('/api/appointments/{appointment_id}/review')
+def appointment_review(appointment_id: int, body: AppointmentReviewIn, user=Depends(require_admin)):
+    from app.services import tools
+    result = tools.review_appointment(appointment_id, user['username'], body.decision, body.reason)
+    return {'code': result['code'], 'message': result['message'], 'data': result.get('data')}

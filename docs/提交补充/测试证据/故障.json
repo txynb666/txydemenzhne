@@ -1,0 +1,32 @@
+{
+  "category": "故障",
+  "status": "PASS",
+  "time": "2026-11-06T01:52:56.966733+00:00",
+  "scope": "Offline HTTP/SQLite integration; model faults injected, not clinical validation.",
+  "steps": [
+    {
+      "operation": "在模型客户端注入ConnectError",
+      "result": "仅替代外部模型边界"
+    },
+    {
+      "operation": "POST /chat 检查SSE",
+      "result": {
+        "http": 200,
+        "error_event": true,
+        "done_event": false,
+        "stream": "event: meta\ndata: {\"session_id\": \"d2a46a7695074d3a91b37fa9d4ee8e63\"}\n\nevent: status\ndata: {\"stage\": \"working\", \"text\": \"正在思考…\"}\n\nevent: error\ndata: {\"code\": 3002, \"message\": \"对话模型：服务调用失败，请运行模型自检查看故障类别\"}\n\n"
+      }
+    },
+    {
+      "operation": "故障后检查health",
+      "result": {
+        "code": 0,
+        "message": "成功",
+        "data": {
+          "status": "ok",
+          "time": "2026-11-06 09:52:56"
+        }
+      }
+    }
+  ]
+}
