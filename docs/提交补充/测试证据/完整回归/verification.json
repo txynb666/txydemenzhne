@@ -1,0 +1,101 @@
+{
+  "generated_at_utc": "2026-11-06T01:52:57.949678+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "checks": [
+    {
+      "name": "syntax",
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-m",
+        "compileall",
+        "-q",
+        "app",
+        "scripts",
+        "tests"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "syntax.txt"
+    },
+    {
+      "name": "backend",
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-m",
+        "pytest",
+        "tests",
+        "-q",
+        "-o",
+        "faulthandler_timeout=30",
+        "--junitxml=C:\\Users\\Lenovo\\Documents\\Codex\\2026-11-05\\w\\work\\clinic-upgrade\\docs\\提交补充\\测试证据\\完整回归\\pytest.xml"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "backend.txt"
+    },
+    {
+      "name": "frontend",
+      "command": [
+        "C:\\Program Files\\WindowsApps\\OpenAI.CodexPrimaryRuntime.v26-1030-493-0_26.1030.493.0_x64__3k8sg7r9htsxt\\dependencies\\node\\bin\\node.EXE",
+        "--test",
+        "tests/test_stream.cjs"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "frontend.txt"
+    },
+    {
+      "name": "documents",
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "scripts/verify_docs.py"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "documents.txt"
+    }
+  ],
+  "backend_counts": {
+    "tests": 39,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "scope": "Offline automated checks; no real model, hospital or user acceptance claim.",
+  "source_sha256": {
+    "app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/agents/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/agents/harness.py": "2773819d28ac1b787e453da02e48f0bc8451c0d505b73b0fc2f181d5112298de",
+    "app/agents/prompts.py": "cea53da7dab2290a181efbd9d8fece99cebb51ad4090d5b7261fb47c55b1075b",
+    "app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/admin/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/api/admin/routes.py": "3f491a8281c2f276500c4bfb87fb05b425fa94d8757d1df27c196e58b867ef0f",
+    "app/api/employee/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/core/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/core/config.py": "552dbda1fa85ceace3be9752e8de77b7072032c0e8da3f6d0e71c17f77d0d6ab",
+    "app/core/model_provider.py": "797fae146912de21a775676eec374d22487885f1d45fb164fa60642874e64901",
+    "app/main.py": "a5ff8135842d10932c5479d93ee676b8995a8f4816df1e9a6087b93aff7a5112",
+    "app/models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/rag/__init__.py": "74a267ea7b36abee044390325c144685205578ed39f819920c024cbcd0802532",
+    "app/repositories/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/repositories/admin_db.py": "608646faf67d317388f76d99010106e40402f74ea508f3b181c35ddcb9c30b3b",
+    "app/repositories/agent_trace.py": "c16d27ada38f8e104884fdc787d5ffe1a701ea29dc6522983871603bc22d28a3",
+    "app/repositories/schema.py": "80573984178127e56761b69822f720f56f398c83d8a2ec8ffd44479f95d7118a",
+    "app/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/services/tools.py": "95eb65760842263d92f93a9d616de3ba830bd02877c472a39c00b0c567368ed0",
+    "scripts/calculate_business_case.py": "f3ea7b25167fba78674a8a2aca792661f2e06eef8c15bfb2eeba4d82aee8ca48",
+    "scripts/check_models.py": "1e5f402fe2e48ae5bc7933eaf3f89ea595825eb44baf3fa37df89db6ccbc1319",
+    "scripts/verify.py": "f60eaacc84bbf0d7d122d1058e51e6149a0eda934f5148e5a9fd6018ce4ed4ae",
+    "scripts/verify_docs.py": "50e5b20fbaec3fcf5b7a559e398ab863b04af8e06ca209eb9e382ef8487c62c3",
+    "static/chat.css": "a0f3c8865e8ed5eacd39a62bebbbebf5587fdbecfd180d2c84603b4d76c4d018",
+    "static/index.html": "7f7e33c32284e07de3470112e737ddeb65a216786f0274d4817617820a85475b",
+    "static/message-view.js": "cc22498641940b67403d5be79be42ac325a391f30253d0abd7f50d7b82598b0d",
+    "static/stream.js": "2e11395a7017504a01e1a5d97dc1172a5bc42f13786e4498408648256668ec48",
+    "tests/conftest.py": "dc815a6ae059cdaf714ace2881667ccdd577dd247a9969c9bf389e0adb99771f",
+    "tests/test_acceptance.py": "b095081cfde32ff7118ff1695dd4534452db9d2450561b6ebeef5c8798e32d8a",
+    "tests/test_model_provider.py": "cfd70b51dc94601e6a56356cc301ffe2e53f9f2d2f7445a8ab6232f37cfe112c",
+    "tests/test_stream.cjs": "547f48182bdec021b6c938b73fa604be591ff9a30dc769637f3b08e271206b8c",
+    "tests/test_submission_scenarios.py": "506780a0f7b8e2b159f32b4bc0da43f8eb811513b5d00c5f60ba73aa17a7b4d7",
+    "tests/test_tools_constraints.py": "a06a840584799cfc9b7a97fbe69b90968e9b0d36ed6fed84ff47af7e2a775c12"
+  }
+}

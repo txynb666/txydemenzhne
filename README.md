@@ -8,7 +8,7 @@
 <img alt="Python" src="https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white">
 <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white">
 <img alt="License" src="https://img.shields.io/badge/License-MIT-green">
-<img alt="Offline tests" src="https://img.shields.io/badge/Offline%20tests-40%20passed-brightgreen">
+<img alt="Offline tests" src="https://img.shields.io/badge/Offline%20tests-45%20passed-brightgreen">
 </p>
 
 ---
@@ -322,7 +322,7 @@ python scripts/verify.py
 
 覆盖：无令牌建单必拒、校验不通过不签发令牌、令牌重放拒绝、篡改金额拒绝、
 起付线判断、AI 建预约强制 `pending_triage`、幂等键防重单、号源约满保护。
-本次离线运行后端 34 项、前端 6 项通过；不代表真实模型问答准确率。
+本轮离线运行后端 39 项、前端 6 项通过；不代表真实模型问答准确率。新增预约人工审核位于 `/admin/triage`，AI不得伪填确认人。课程清单与未完成项见[验收对照清单](docs/提交补充/验收对照清单.md)。
 结果默认保存在 `artifacts/verification/`，提交的实测快照与需求追溯见[验证总览](docs/validation/README.md)。
 
 ### 30 条评测用例

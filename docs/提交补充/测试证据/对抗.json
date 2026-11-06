@@ -1,0 +1,40 @@
+{
+  "category": "对抗",
+  "status": "PASS",
+  "time": "2026-11-06T01:52:56.898781+00:00",
+  "scope": "Offline HTTP/SQLite integration; model faults injected, not clinical validation.",
+  "steps": [
+    {
+      "operation": "AI工具伪造分诊确认人",
+      "result": {
+        "ok": false,
+        "code": 1003,
+        "message": "AI工具不得指定分诊确认人，请由授权管理员在后台审核",
+        "data": {}
+      }
+    },
+    {
+      "operation": "检查原预约未被确认为有效",
+      "result": {
+        "status": "pending_triage",
+        "reviewer": null
+      }
+    },
+    {
+      "operation": "SQL注入形式slot_id输入",
+      "result": {
+        "ok": false,
+        "code": 6005,
+        "message": "号源不存在，请重新查询可用时段",
+        "data": {}
+      }
+    },
+    {
+      "operation": "核查预约表仍完整",
+      "result": {
+        "rows_before": 8,
+        "rows_after": 8
+      }
+    }
+  ]
+}
