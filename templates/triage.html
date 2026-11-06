@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}预约分诊审核{% endblock %}
+{% block heading %}预约分诊人工审核{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>待审核预约</h2>
+  <p>教学MVP由管理员演示审核。真实临床签核须另行建立医护角色授权；AI不能指定确认人。</p>
+  <p id="status" role="status">正在加载</p>
+  <div id="appointments"></div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+async function loadPending(){
+  try{
+    const data=await api('/admin/api/appointments/pending');
+    const root=document.getElementById('appointments');root.replaceChildren();
+    document.getElementById('status').textContent=data.data.length?'请核实原记录后填写审核说明':'暂无待审核预约';
+    for(const row of data.data){
+      const card=document.createElement('section');card.style.cssText='padding:18px 0;border-bottom:1px solid #e2e8f0';
+      const title=document.createElement('h3');title.textContent=`预约 ${row.id} · ${row.dept}`;
+      const detail=document.createElement('p');detail.textContent=`症状原文：${row.symptom_summary||'未填写'}；建议科室：${row.recommended_dept||'待核实'}`;
+      const label=document.createElement('label');label.textContent='审核说明（必填）';
+      const reason=document.createElement('textarea');reason.maxLength=500;reason.required=true;reason.rows=2;reason.style.width='100%';label.append(reason);
+      card.append(title,detail,label);
+      for(const [decision,text] of [['confirm','确认预约'],['reject','退回并释放名额']]){
+        const button=document.createElement('button');button.textContent=text;button.style.margin='10px 10px 0 0';
+        button.onclick=async()=>{
+          if(!reason.value.trim()){toast('请填写审核说明',true);return;}
+          if(!window.confirm(`确认执行“${text}”？操作会写入审核记录。`))return;
+          button.disabled=true;
+          try{await api(`/admin/api/appointments/${row.id}/review`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({decision,reason:reason.value.trim()})});toast('审核已记录');await loadPending();}
+          catch(e){button.disabled=false;}
+        };card.append(button);
+      }root.append(card);
+    }
+  }catch(e){document.getElementById('status').textContent='加载失败，请刷新后重试';}
+}
+loadPending();
+</script>
+{% endblock %}
